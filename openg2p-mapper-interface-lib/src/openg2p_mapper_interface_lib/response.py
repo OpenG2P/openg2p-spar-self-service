@@ -27,6 +27,7 @@ class MapperResponse(BaseModel):
     fa: Optional[str] = None
     name: Optional[str] = None
     phone_number: Optional[str] = None
+    account_provider_info: Optional[object] = (None,)
     additional_info: Optional[List[object]] = None
     status: StatusEnum
     mapper_error_code: Optional[MapperErrorCode] = None
