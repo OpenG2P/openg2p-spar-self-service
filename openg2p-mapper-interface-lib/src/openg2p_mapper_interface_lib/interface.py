@@ -1,8 +1,9 @@
 from .response import MapperResponse
 from typing import Optional, List, Dict, Any
+from openg2p_fastapi_common.service import BaseService
 
 
-class MapperInterface:
+class MapperInterface(BaseService):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
