@@ -1,7 +1,6 @@
 from typing import List
 
 from openg2p_fastapi_common.controller import BaseController
-from fastapi import Depends, Query
 
 from ..schemas import (
     DfspLevelResponse,

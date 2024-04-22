@@ -9,7 +9,7 @@ _config = Settings.get_config()
 from openg2p_fastapi_common.app import Initializer as BaseInitializer
 
 from .controllers import DfspController, SelfServiceController
-from .models import DfspLevel
+from .models import DfspLevel, DfspLevelValue, Strategy, LoginProvider
 
 
 class Initializer(BaseInitializer):
@@ -23,5 +23,8 @@ class Initializer(BaseInitializer):
 
         async def migrate():
             await DfspLevel.create_migrate()
+            await DfspLevelValue.create_migrate()
+            await Strategy.create_migrate()
+            await LoginProvider.create_migrate()
 
         asyncio.run(migrate())
