@@ -2,14 +2,23 @@ from .request import SparRequest
 from .response import SparResponse
 from pydantic import BaseModel
 from typing import Optional, List
+from enum import Enum
+
+
+class LevelTypeEnum(Enum):
+    BANK = "BANK"
+    BRANCH = "BRANCH"
+    ACCOUNT = "ACCOUNT"
+    MOBILE_WALLET = "MOBILE_WALLET"
+    MOBILE_NUMBER = "MOBILE_NUMBER"
 
 
 class DfspLevelSchema(BaseModel):
     id: int
     name: str
-    code: str
-    parent: Optional[int]
-    validation_regex: Optional[str]
+    level_type: str
+    parent: Optional[int] = None
+    validation_regex: Optional[str] = None
 
 
 class DfspLevelRequestPayload(BaseModel):

@@ -6,17 +6,19 @@ from sqlalchemy.ext.asyncio import async_sessionmaker
 from openg2p_fastapi_common.context import dbengine
 
 from .strategy import Strategy
+from ..schemas import LevelTypeEnum
 
 
 class DfspLevel(BaseORMModelWithTimes):
     __tablename__ = "dfsp_levels"
 
     name: Mapped[str] = Column(String)
-    code: Mapped[str] = Column(String(20))
-    parent: Mapped[Optional[int]] = Column(
-        Integer, ForeignKey("dfsp_levels.id"), nullable=True
-    )
+    level_type: Mapped[str] = Column(String(20), default=LevelTypeEnum)
+    parent: Mapped[Optional[int]] = Column(Integer, nullable=True)
     validation_regex: Mapped[Optional[str]] = Column(String, nullable=True)
+
+    class Config:
+        orm_mode = True
 
     @classmethod
     async def get_level(cls, **kwargs):
@@ -41,15 +43,16 @@ class DfspLevelValue(BaseORMModelWithTimes):
 
     name: Mapped[str] = Column(String)
     code: Mapped[str] = Column(String(20))
-    parent: Mapped[Optional[int]] = Column(
-        Integer, ForeignKey("dfsp_level_values.id"), nullable=True
-    )
-    level_id: Mapped[int] = Column(Integer, ForeignKey("dfsp_levels.id"))
+    parent: Mapped[Optional[int]] = Column(Integer, nullable=True)
+    level_id: Mapped[int] = Column(Integer, nullable=True)
     strategy_id: Mapped[Optional[int]] = Column(
         Integer, ForeignKey("strategy.id"), nullable=True
     )
 
     strategy: Mapped[Optional[Strategy]] = relationship("Strategy")
+
+    class Config:
+        orm_mode = True
 
     @classmethod
     async def get_level_values(cls, **kwargs):

@@ -8,7 +8,7 @@ _config = Settings.get_config()
 
 from openg2p_fastapi_common.app import Initializer as BaseInitializer
 
-from .controllers.dfsp_controller import DfspController
+from .controllers import DfspController, SelfServiceController
 from .models import DfspLevel
 
 
@@ -16,6 +16,7 @@ class Initializer(BaseInitializer):
     def initialize(self, **kwargs):
         super().initialize(**kwargs)
         DfspController().post_init()
+        SelfServiceController().post_init()
 
     def migrate_database(self, args):
         super().migrate_database(args)

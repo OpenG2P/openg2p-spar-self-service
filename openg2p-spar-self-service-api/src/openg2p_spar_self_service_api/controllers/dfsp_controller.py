@@ -42,8 +42,9 @@ class DfspController(BaseController):
         results = await DfspLevel.get_level(
             parent=dfsp_level_request.request_payload.parent
         )
+
         dfsp_level_schemas: List[DfspLevelSchema] = [
-            DfspLevelSchema.model_validate(result) for result in results
+            DfspLevelSchema.model_validate(result.__dict__) for result in results
         ]
         return DfspLevelResponse(
             response_status=ResponseStatus.SUCCESS, response_payload=dfsp_level_schemas
@@ -53,12 +54,16 @@ class DfspController(BaseController):
         self,
         dfsp_level_value_request: DfspLevelValueRequest,
     ):
-
-        result = await DfspLevelValue.get_level_values(
-            parent=dfsp_level_value_request.request_payload.parent
+        print(
+            dfsp_level_value_request.request_payload.parent,
+            dfsp_level_value_request.request_payload.level_id,
+        )
+        results = await DfspLevelValue.get_level_values(
+            parent=dfsp_level_value_request.request_payload.parent,
+            level_id=dfsp_level_value_request.request_payload.level_id,
         )
         dfsp_level_value_schemas: List[DfspLevelValueSchema] = [
-            DfspLevelValueSchema.model_validate(res) for res in result
+            DfspLevelValueSchema.model_validate(result.__dict__) for result in results
         ]
         return DfspLevelValueResponse(
             response_status=ResponseStatus.SUCCESS,
