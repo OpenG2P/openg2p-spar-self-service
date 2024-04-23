@@ -25,6 +25,7 @@ _config = Settings.get_config()
 class SelfServiceController(BaseController):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
         self._mapper_interface = MapperInterface().get_component()
         self._link_url = _config.mapper_api_url + _config.mapper_link_path
         self._update_url = _config.mapper_api_url + _config.mapper_update_path
@@ -158,7 +159,8 @@ class SelfServiceController(BaseController):
     ) -> SelfServiceResolveResponse:
         constructed_id = await StrategyHelper().get_component().construct_id(auth)
         mapper_response: MapperResponse = await self.id_mapper_interface.resolve(
-            id=constructed_id
+            id=constructed_id,
+            resolve_url=self._resolve_url,
         )
         self_service_resolve_response: SelfServiceResolveResponse = (
             await ResponseHelper()

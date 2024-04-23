@@ -223,8 +223,10 @@ class MapperConnectorHelper(BaseService):
             ].account_provider_info,
             additional_info=response.message.resolve_response[0].additional_info,
             status=response.message.resolve_response[0].status,
-            mapper_error_code=ResolveStatusReasonCode(
-                response.message.resolve_response[0].status_reason_code
+            mapper_error_code=(
+                ResolveStatusReasonCode(
+                    response.message.resolve_response[0].status_reason_code
+                )
                 if response.message.resolve_response[0].status_reason_code
                 else None
             ),

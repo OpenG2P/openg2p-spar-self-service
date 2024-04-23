@@ -81,14 +81,7 @@ class StrategyHelper(BaseService):
         Deconstructs the 'fa' string based on a strategy obtained from additional_info where the
         key is 'strategy_id'. Returns an instance of Fa filled with deconstructed values.
         """
-        strategy_id = next(
-            (
-                info["value"]
-                for info in additional_info
-                if info["key"] == STRATEGY_ID_KEY
-            ),
-            None,
-        )
+        strategy_id = additional_info[0].get(STRATEGY_ID_KEY)
         if strategy_id:
             strategy = await Strategy.get_strategy(
                 id=strategy_id,
@@ -97,9 +90,10 @@ class StrategyHelper(BaseService):
                 deconstructed_pairs = self._deconstruct(
                     fa, strategy.deconstruct_strategy
                 )
-                deconstructed_fa = Fa(
-                    **{pair.key: pair.value for pair in deconstructed_pairs}
-                )
+                deconstructed_fa = {
+                    pair.key: pair.value for pair in deconstructed_pairs
+                }
+
                 return deconstructed_fa
         return {}
 

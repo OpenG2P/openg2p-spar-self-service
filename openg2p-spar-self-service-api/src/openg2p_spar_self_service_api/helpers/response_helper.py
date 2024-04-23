@@ -64,9 +64,13 @@ class ResponseHelper(BaseService):
                 else ResponseStatus.FAILURE
             ),
             response_payload=SelfServiceResolveResponsePayload(
-                fa=await StrategyHelper()
-                .get_component()
-                .deconstruct_fa(mapper_response.fa, mapper_response.additional_info),
+                fa=(
+                    await StrategyHelper()
+                    .get_component()
+                    .deconstruct_fa(mapper_response.fa, mapper_response.additional_info)
+                    if mapper_response.status == "succ"
+                    else None
+                ),
                 name=mapper_response.name,
                 phone_number=mapper_response.phone_number,
                 additional_info=mapper_response.additional_info,

@@ -89,7 +89,7 @@ class SelfServiceResolveRequest(SparRequest):
 
 
 class SelfServiceResolveResponsePayload(BaseModel):
-    fa: str
+    fa: Optional[dict] = None
     name: Optional[str] = None
     phone_number: Optional[str] = None
     additional_info: Optional[List[Dict[str, Any]]] = None
