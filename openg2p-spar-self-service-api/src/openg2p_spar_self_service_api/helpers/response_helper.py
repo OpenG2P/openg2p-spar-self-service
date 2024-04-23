@@ -43,17 +43,10 @@ class ResponseHelper(BaseService):
         return SelfServiceUpdateResponse(
             response_status=(
                 ResponseStatus.SUCCESS
-                if mapper_response.status == StatusEnum.succ
+                if mapper_response.status == "succ"
                 else ResponseStatus.FAILURE
             ),
-            response_payload=SelfServiceUpdateResponsePayload(
-                fa=await StrategyHelper()
-                .get_component()
-                .deconstruct_fa(mapper_response.fa, mapper_response.additional_info),
-                name=mapper_response.name,
-                phone_number=mapper_response.phone_number,
-                additional_info=mapper_response.additional_info,
-            ),
+            response_payload=SelfServiceUpdateResponsePayload(),
             response_message=(
                 mapper_response.mapper_error_message
                 if mapper_response.mapper_error_message

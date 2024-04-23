@@ -73,11 +73,7 @@ class SelfServiceUpdateRequest(SparRequest):
 
 
 class SelfServiceUpdateResponsePayload(BaseModel):
-    id: Optional[str] = None
-    fa: Optional[BankAccountFa | MobileWalletFa | EmailWalletFa] = None
-    name: Optional[str] = None
-    phone_number: Optional[str] = None
-    additional_info: Optional[List[Dict[str, Any]]] = None
+    pass
 
 
 class SelfServiceUpdateResponse(SparResponse):
@@ -93,7 +89,7 @@ class SelfServiceResolveRequest(SparRequest):
 
 
 class SelfServiceResolveResponsePayload(BaseModel):
-    fa: BankAccountFa | MobileWalletFa | EmailWalletFa
+    fa: str
     name: Optional[str] = None
     phone_number: Optional[str] = None
     additional_info: Optional[List[Dict[str, Any]]] = None

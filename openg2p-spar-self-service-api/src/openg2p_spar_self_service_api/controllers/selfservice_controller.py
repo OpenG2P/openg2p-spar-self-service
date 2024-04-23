@@ -142,6 +142,7 @@ class SelfServiceController(BaseController):
                     STRATEGY_ID_KEY: self_service_update_request.request_payload.fa.strategy_id
                 }
             ],
+            update_url=self._update_url,
         )
         self_service_update_response: SelfServiceUpdateResponse = (
             await ResponseHelper()
