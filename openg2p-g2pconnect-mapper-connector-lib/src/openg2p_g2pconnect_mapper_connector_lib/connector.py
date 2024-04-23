@@ -1,24 +1,30 @@
-from openg2p_fastapi_common.service import BaseService
 from openg2p_mapper_interface_lib import MapperInterface, MapperResponse
 from typing import Optional, List, Dict, Any
 
 from openg2p_g2pconnect_mapper_lib.schemas import (
+    LinkRequest,
+    UnlinkRequest,
+    UpdateRequest,
+    ResolveRequest,
     LinkResponse,
     UnlinkResponse,
     UpdateResponse,
     ResolveResponse,
 )
 from openg2p_g2pconnect_mapper_lib.client import (
-    MapperLinkService,
-    MapperUnlinkService,
-    MapperUpdateService,
-    MapperResolveService,
+    MapperLinkClient,
+    MapperUnlinkClient,
+    MapperUpdateClient,
+    MapperResolveClient,
 )
 
 from .helper import MapperConnectorHelper
+from .config import Settings
+
+_config = Settings.get_config(strict=False)
 
 
-class MapperConnector(BaseService, MapperInterface):
+class MapperConnector(MapperInterface):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -29,28 +35,33 @@ class MapperConnector(BaseService, MapperInterface):
         name: Optional[str],
         phone_number: Optional[str],
         additional_info: Optional[List[Dict[str, Any]]],
+        link_url: str,
     ) -> MapperResponse:
         mapper_connector_helper = MapperConnectorHelper.get_component()
-        link_request_message = await mapper_connector_helper.construct_link_request(
-            id, fa, name, phone_number, additional_info
+        link_request: LinkRequest = (
+            await mapper_connector_helper.construct_link_request(
+                id, fa, name, phone_number, additional_info
+            )
         )
-        link_response: LinkResponse = (
-            await MapperLinkService.get_component().link_request(link_request_message)
+        link_response: (
+            LinkResponse
+        ) = await MapperLinkClient.get_component().link_request(
+            link_url=link_url, link_request=link_request
         )
         mapper_response = await mapper_connector_helper.construct_mapper_response_link(
             link_response
         )
         return mapper_response
 
-    async def unlink(self, id: str) -> MapperResponse:
+    async def unlink(self, id: str, fa: str, unlink_url: str) -> MapperResponse:
         mapper_connector_helper = MapperConnectorHelper.get_component()
-        unlink_request_message = await mapper_connector_helper.construct_unlink_request(
-            id
+        unlink_request: UnlinkRequest = (
+            await mapper_connector_helper.construct_unlink_request(id=id, fa=fa)
         )
         unlink_response: (
             UnlinkResponse
-        ) = await MapperUnlinkService.get_component().unlink_request(
-            unlink_request_message
+        ) = await MapperUnlinkClient.get_component().unlink_request(
+            unlink_request=unlink_request, unlink_url=unlink_url
         )
         mapper_response = (
             await mapper_connector_helper.construct_mapper_response_unlink(
@@ -59,15 +70,15 @@ class MapperConnector(BaseService, MapperInterface):
         )
         return mapper_response
 
-    async def resolve(self, id: str) -> MapperResponse:
+    async def resolve(self, id: str, resolve_url: str) -> MapperResponse:
         mapper_connector_helper = MapperConnectorHelper.get_component()
-        resolve_request_message = (
+        resolve_request: ResolveRequest = (
             await mapper_connector_helper.construct_resolve_request(id)
         )
         resolve_response: (
             ResolveResponse
-        ) = await MapperResolveService.get_component().resolve_request(
-            resolve_request_message
+        ) = await MapperResolveClient.get_component().resolve_request(
+            resolve_request=resolve_request, resolve_url=resolve_url
         )
         mapper_response = (
             await mapper_connector_helper.construct_mapper_response_resolve(
@@ -83,15 +94,18 @@ class MapperConnector(BaseService, MapperInterface):
         name: Optional[str],
         phone_number: Optional[str],
         additional_info: Optional[List[Dict[str, Any]]],
+        update_url: str,
     ) -> MapperResponse:
         mapper_connector_helper = MapperConnectorHelper.get_component()
-        update_request_message = await mapper_connector_helper.construct_update_request(
-            id, fa, name, phone_number, additional_info
+        update_request: UpdateRequest = (
+            await mapper_connector_helper.construct_update_request(
+                id, fa, name, phone_number, additional_info
+            )
         )
         update_response: (
             UpdateResponse
-        ) = await MapperUpdateService.get_component().update_request(
-            update_request_message
+        ) = await MapperUpdateClient.get_component().update_request(
+            update_request=update_request, update_url=update_url
         )
         mapper_response = (
             await mapper_connector_helper.construct_mapper_response_update(

@@ -1,8 +1,9 @@
 from .response import MapperResponse
 from typing import Optional, List, Dict, Any
+from openg2p_fastapi_common.service import BaseService
 
 
-class MapperInterface:
+class MapperInterface(BaseService):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -13,13 +14,14 @@ class MapperInterface:
         name: Optional[str],
         phone_number: Optional[str],
         additional_info: Optional[List[Dict[str, Any]]],
+        link_url: str,
     ) -> MapperResponse:
         raise NotImplementedError()
 
-    async def unlink(self, id: str) -> MapperResponse:
+    async def unlink(self, id: str, fa: str, unlink_url: str) -> MapperResponse:
         raise NotImplementedError()
 
-    async def resolve(self, id: str) -> MapperResponse:
+    async def resolve(self, id: str, resolve_url: str) -> MapperResponse:
         raise NotImplementedError()
 
     async def update(
@@ -29,5 +31,6 @@ class MapperInterface:
         name: Optional[str],
         phone_number: Optional[str],
         additional_info: Optional[List[Dict[str, Any]]],
+        update_url: str,
     ) -> MapperResponse:
         raise NotImplementedError()

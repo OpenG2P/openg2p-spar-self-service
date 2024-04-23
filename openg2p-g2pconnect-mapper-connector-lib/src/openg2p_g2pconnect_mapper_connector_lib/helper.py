@@ -4,6 +4,9 @@ from typing import Optional, List, Dict, Any
 
 from openg2p_fastapi_common.service import BaseService
 from openg2p_g2pconnect_mapper_lib.schemas import (
+    LinkRequest,
+    LinkRequestMessage,
+    SingleLinkRequest,
     SingleUnlinkRequest,
     UnlinkRequestMessage,
     UnlinkRequest,
@@ -20,16 +23,62 @@ from openg2p_g2pconnect_mapper_lib.schemas import (
 )
 from openg2p_g2pconnect_common_lib.schemas import RequestHeader
 from openg2p_mapper_interface_lib.interface import MapperResponse
-from openg2p_g2pconnect_mapper_lib.schemas import LinkStatusReasonCode
+from openg2p_g2pconnect_mapper_lib.schemas import (
+    LinkStatusReasonCode,
+    UnlinkStatusReasonCode,
+    ResolveStatusReasonCode,
+    UpdateStatusReasonCode,
+)
 
 
 class MapperConnectorHelper(BaseService):
-    async def construct_unlink_request(self, id: str) -> UnlinkRequest:
+    async def construct_link_request(
+        self,
+        id: str,
+        fa: str,
+        name: Optional[str],
+        phone_number: Optional[str],
+        additional_info: Optional[List[Dict[str, Any]]],
+    ) -> LinkRequest:
+        link_request_message = LinkRequestMessage(
+            transaction_id=str(uuid.uuid4()),
+            link_request=[
+                SingleLinkRequest(
+                    reference_id=str(uuid.uuid4()),
+                    timestamp=datetime.now(),
+                    id=id,
+                    fa=fa,
+                    name=name,
+                    phone_number=phone_number,
+                    additional_info=additional_info,
+                )
+            ],
+        )
+
+        link_request = LinkRequest(
+            signature="",
+            header=RequestHeader(
+                message_id=str(uuid.uuid4()),
+                message_ts=str(datetime.now()),
+                action="link",
+                sender_id="",
+                sender_uri="",
+                total_count=1,
+            ),
+            message=link_request_message,
+        )
+
+        return link_request
+
+    async def construct_unlink_request(self, id: str, fa: str) -> UnlinkRequest:
         unlink_request_message = UnlinkRequestMessage(
             transaction_id=str(uuid.uuid4()),
             unlink_request=[
                 SingleUnlinkRequest(
-                    reference_id=str(uuid.uuid4()), timestamp=datetime.now(), id=id
+                    reference_id=str(uuid.uuid4()),
+                    timestamp=datetime.now(),
+                    id=id,
+                    fa=fa,
                 )
             ],
         )
@@ -38,7 +87,7 @@ class MapperConnectorHelper(BaseService):
             signature="",
             header=RequestHeader(
                 message_id=str(uuid.uuid4()),
-                message_ts=datetime.now(),
+                message_ts=str(datetime.now()),
                 action="unlink",
                 sender_id="",
                 sender_uri="",
@@ -63,7 +112,7 @@ class MapperConnectorHelper(BaseService):
             signature="",
             header=RequestHeader(
                 message_id=str(uuid.uuid4()),
-                message_ts=datetime.now(),
+                message_ts=str(datetime.now()),
                 action="resolve",
                 sender_id="",
                 sender_uri="",
@@ -101,7 +150,7 @@ class MapperConnectorHelper(BaseService):
             signature="",
             header=RequestHeader(
                 message_id=str(uuid.uuid4()),
-                message_ts=datetime.now(),
+                message_ts=str(datetime.now()),
                 action="update",
                 sender_id="",
                 sender_uri="",
@@ -123,8 +172,12 @@ class MapperConnectorHelper(BaseService):
             account_provider_info=None,
             additional_info=response.message.link_response[0].additional_info,
             status=response.message.link_response[0].status,
-            mapper_error_code=LinkStatusReasonCode(
-                response.message.link_response[0].status_reason_code
+            mapper_error_code=(
+                LinkStatusReasonCode(
+                    response.message.link_response[0].status_reason_code
+                )
+                if response.message.link_response[0].status_reason_code
+                else None
             ),
             mapper_error_message=response.message.link_response[
                 0
@@ -143,8 +196,12 @@ class MapperConnectorHelper(BaseService):
             account_provider_info=None,
             additional_info=[],
             status=response.message.unlink_response[0].status,
-            mapper_error_code=LinkStatusReasonCode(
-                response.message.unlink_response[0].status_reason_code
+            mapper_error_code=(
+                UnlinkStatusReasonCode(
+                    response.message.unlink_response[0].status_reason_code
+                )
+                if response.message.unlink_response[0].status_reason_code
+                else None
             ),
             mapper_error_message=response.message.unlink_response[
                 0
@@ -165,8 +222,12 @@ class MapperConnectorHelper(BaseService):
             ].account_provider_info,
             additional_info=response.message.resolve_response[0].additional_info,
             status=response.message.resolve_response[0].status,
-            mapper_error_code=LinkStatusReasonCode(
-                response.message.resolve_response[0].status_reason_code
+            mapper_error_code=(
+                ResolveStatusReasonCode(
+                    response.message.resolve_response[0].status_reason_code
+                )
+                if response.message.resolve_response[0].status_reason_code
+                else None
             ),
             mapper_error_message=response.message.resolve_response[
                 0
@@ -185,8 +246,12 @@ class MapperConnectorHelper(BaseService):
             account_provider_info=None,
             additional_info=response.message.update_response[0].additional_info,
             status=response.message.update_response[0].status,
-            mapper_error_code=LinkStatusReasonCode(
-                response.message.update_response[0].status_reason_code
+            mapper_error_code=(
+                UpdateStatusReasonCode(
+                    response.message.update_response[0].status_reason_code
+                )
+                if response.message.update_response[0].status_reason_code
+                else None
             ),
             mapper_error_message=response.message.update_response[
                 0
