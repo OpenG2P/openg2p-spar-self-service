@@ -15,7 +15,6 @@ class DfspLevel(BaseORMModelWithTimes):
     name: Mapped[str] = Column(String)
     level_type: Mapped[str] = Column(String(20), default=LevelTypeEnum)
     parent: Mapped[Optional[int]] = Column(Integer, nullable=True)
-    validation_regex: Mapped[Optional[str]] = Column(String, nullable=True)
 
     class Config:
         orm_mode = True
@@ -43,6 +42,7 @@ class DfspLevelValue(BaseORMModelWithTimes):
 
     name: Mapped[str] = Column(String)
     code: Mapped[str] = Column(String(20))
+    description: Mapped[Optional[str]] = Column(String, nullable=True)
     parent: Mapped[Optional[int]] = Column(Integer, nullable=True)
     level_id: Mapped[int] = Column(Integer, nullable=True)
     strategy_id: Mapped[Optional[int]] = Column(
@@ -50,6 +50,7 @@ class DfspLevelValue(BaseORMModelWithTimes):
     )
 
     strategy: Mapped[Optional[Strategy]] = relationship("Strategy")
+    validation_regex: Mapped[Optional[str]] = Column(String, nullable=True)
 
     class Config:
         orm_mode = True

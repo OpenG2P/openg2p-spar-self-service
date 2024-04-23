@@ -2,9 +2,14 @@ from .request import SparRequest
 from .response import SparResponse
 from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
-
+from .dfsp import LevelTypeEnum
 
 STRATEGY_ID_KEY = "strategy_id"
+
+
+class TestStrategyResponse(BaseModel):
+    constructed_id: str
+    constructed_fa: str
 
 
 class KeyValuePair(BaseModel):
@@ -13,19 +18,32 @@ class KeyValuePair(BaseModel):
 
 
 class Fa(BaseModel):
-    level_id: int
-    level_name: str
-    level_code: str
-    parent_level_id: int
-    level_value_id: str
-    strategy_id: Optional[int] = None
-    level_value_name: str
-    level_value_code: str
-    sub_fa: Optional["Fa"] = None
+    strategy_id: int
+    fa_type: LevelTypeEnum
+
+
+class BankAccountFa(Fa):
+    bank_name: str
+    bank_code: str
+    branch_name: str
+    branch_code: str
+    account_number: str
+
+
+class MobileWalletFa(Fa):
+    wallet_provider_name: str
+    wallet_provider_code: str
+    mobile_number: str
+
+
+class EmailWalletFa(Fa):
+    wallet_provider_name: str
+    wallet_provider_code: str
+    email_address: str
 
 
 class SelfServiceLinkRequestPayload(BaseModel):
-    fa: Fa
+    fa: BankAccountFa | MobileWalletFa | EmailWalletFa
     name: Optional[str] = None
     phone_number: Optional[str] = None
     additional_info: Optional[List[Dict[str, Any]]] = None
@@ -36,11 +54,7 @@ class SelfServiceLinkRequest(SparRequest):
 
 
 class SelfServiceLinkResponsePayload(BaseModel):
-    id: str
-    fa: Fa
-    name: Optional[str] = None
-    phone_number: Optional[str] = None
-    additional_info: Optional[List[Dict[str, Any]]] = None
+    pass
 
 
 class SelfServiceLinkResponse(SparResponse):
@@ -48,7 +62,7 @@ class SelfServiceLinkResponse(SparResponse):
 
 
 class SelfServiceUpdateRequestPayload(BaseModel):
-    fa: Fa
+    fa: BankAccountFa | MobileWalletFa | EmailWalletFa
     name: Optional[str] = None
     phone_number: Optional[str] = None
     additional_info: Optional[List[Dict[str, Any]]] = None
@@ -60,7 +74,7 @@ class SelfServiceUpdateRequest(SparRequest):
 
 class SelfServiceUpdateResponsePayload(BaseModel):
     id: Optional[str] = None
-    fa: Optional[Fa] = None
+    fa: Optional[BankAccountFa | MobileWalletFa | EmailWalletFa] = None
     name: Optional[str] = None
     phone_number: Optional[str] = None
     additional_info: Optional[List[Dict[str, Any]]] = None
@@ -79,7 +93,7 @@ class SelfServiceResolveRequest(SparRequest):
 
 
 class SelfServiceResolveResponsePayload(BaseModel):
-    fa: Fa
+    fa: BankAccountFa | MobileWalletFa | EmailWalletFa
     name: Optional[str] = None
     phone_number: Optional[str] = None
     additional_info: Optional[List[Dict[str, Any]]] = None
@@ -90,7 +104,7 @@ class SelfServiceResolveResponse(SparResponse):
 
 
 class SelfServiceUnlinkRequestPayload(BaseModel):
-    pass  # Blank Request
+    fa: BankAccountFa | MobileWalletFa | EmailWalletFa
 
 
 class SelfServiceUnlinkRequest(SparRequest):

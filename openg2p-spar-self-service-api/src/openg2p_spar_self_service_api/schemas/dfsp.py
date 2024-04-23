@@ -6,19 +6,20 @@ from enum import Enum
 
 
 class LevelTypeEnum(Enum):
-    BANK = "BANK"
-    BRANCH = "BRANCH"
-    ACCOUNT = "ACCOUNT"
-    MOBILE_WALLET = "MOBILE_WALLET"
-    MOBILE_NUMBER = "MOBILE_NUMBER"
+    BANK = "bank"
+    BRANCH = "branch"
+    ACCOUNT = "account"
+    MOBILE_WALLET_PROVIDER = "mobile_wallet_provider"
+    MOBILE_NUMBER = "mobile_number"
+    EMAIL_WALLET_PROVIDER = "email_wallet_provider"
+    EMAIL_ADDRESS = "email_address"
 
 
 class DfspLevelSchema(BaseModel):
     id: int
     name: str
-    level_type: str
+    level_type: LevelTypeEnum
     parent: Optional[int] = None
-    validation_regex: Optional[str] = None
 
 
 class DfspLevelRequestPayload(BaseModel):
@@ -40,6 +41,7 @@ class DfspLevelValueSchema(BaseModel):
     parent: Optional[int]
     level_id: int
     strategy_id: Optional[int]
+    validation_regex: Optional[str] = None
 
 
 class DfspLevelValueRequestPayload(BaseModel):

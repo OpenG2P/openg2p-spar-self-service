@@ -17,8 +17,9 @@ class StrategyHelper(BaseService):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _construct(self, values: List[KeyValuePair], strategy: str) -> str:
-        return strategy.format(
+    async def _construct(self, values: List[KeyValuePair], strategy_id: int) -> str:
+        strategy: Strategy = await Strategy().get_strategy(id=strategy_id)
+        return strategy.construct_strategy.format(
             **{key_value.key: key_value.value for key_value in values}
         )
 
@@ -40,7 +41,7 @@ class StrategyHelper(BaseService):
         login_provider: LoginProvider = await LoginProvider.get_login_provider_from_iss(
             auth.iss
         )
-        constructed_id = self._construct(
+        constructed_id = await self._construct(
             [
                 KeyValuePair(
                     key=key,
@@ -58,10 +59,8 @@ class StrategyHelper(BaseService):
         return constructed_id
 
     async def construct_fa(self, fa: Fa) -> str:
-        strategy = await Strategy.get_strategy(
-            id=fa.strategy_id,
-        )
-        constructed_fa = self._construct(
+
+        constructed_fa = await self._construct(
             [
                 KeyValuePair(
                     key=key,
@@ -73,11 +72,11 @@ class StrategyHelper(BaseService):
                 )
                 for key, value in fa.dict().items()
             ],
-            strategy.construct_strategy,
+            fa.strategy_id,
         )
         return constructed_fa
 
-    async def deconstruct_fa(self, fa: str, additional_info: List[dict]) -> Fa:
+    async def deconstruct_fa(self, fa: str, additional_info: List[dict]) -> dict:
         """
         Deconstructs the 'fa' string based on a strategy obtained from additional_info where the
         key is 'strategy_id'. Returns an instance of Fa filled with deconstructed values.
@@ -102,4 +101,21 @@ class StrategyHelper(BaseService):
                     **{pair.key: pair.value for pair in deconstructed_pairs}
                 )
                 return deconstructed_fa
-        return Fa()
+        return {}
+
+    async def deconstruct_fa_test(self, fa: str, strategy_id: int) -> dict:
+
+        if strategy_id:
+            strategy = await Strategy.get_strategy(
+                id=strategy_id,
+            )
+            if strategy:
+                deconstructed_pairs = self._deconstruct(
+                    fa, strategy.deconstruct_strategy
+                )
+                deconstructed_fa = {
+                    pair.key: pair.value for pair in deconstructed_pairs
+                }
+
+                return deconstructed_fa
+        return {}

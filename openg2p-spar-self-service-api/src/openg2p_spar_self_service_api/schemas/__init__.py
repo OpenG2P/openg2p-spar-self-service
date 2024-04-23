@@ -13,6 +13,7 @@ from .dfsp import (
 )
 from .mapper import (
     Fa,
+    TestStrategyResponse,
     SelfServiceLinkRequestPayload,
     SelfServiceLinkRequest,
     SelfServiceLinkResponsePayload,

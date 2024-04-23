@@ -6,25 +6,40 @@ from openg2p_fastapi_auth.dependencies import JwtBearerAuth
 from openg2p_fastapi_auth.models.credentials import AuthCredentials
 
 from ..schemas import (
+    TestStrategyResponse,
     SelfServiceLinkRequest,
     SelfServiceLinkResponse,
     SelfServiceUpdateRequest,
     SelfServiceUpdateResponse,
     SelfServiceResolveResponse,
     SelfServiceUnlinkResponse,
+    SelfServiceUnlinkRequest,
     STRATEGY_ID_KEY,
 )
 from ..helpers import ResponseHelper, StrategyHelper
+from ..config import Settings
+
+_config = Settings.get_config()
 
 
 class SelfServiceController(BaseController):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self._mapper_interface = MapperInterface.get_component()
+        self._mapper_interface = MapperInterface().get_component()
+        self._link_url = _config.mapper_api_url + _config.mapper_link_path
+        self._update_url = _config.mapper_api_url + _config.mapper_update_path
+        self._resolve_url = _config.mapper_api_url + _config.mapper_resolve_path
+        self._unlink_url = _config.mapper_api_url + _config.mapper_unlink_path
 
         self.router.prefix += "/selfservice"
         self.router.tags += ["selfservice"]
 
+        self.router.add_api_route(
+            "/test_strategy",
+            self.test_strategy,
+            responses={200: {"model": TestStrategyResponse}},
+            methods=["POST"],
+        )
         self.router.add_api_route(
             "/link",
             self.link,
@@ -56,6 +71,23 @@ class SelfServiceController(BaseController):
             self._mapper_interface = MapperInterface.get_component()
         return self._mapper_interface
 
+    async def test_strategy(
+        self,
+        auth: Annotated[AuthCredentials, Depends(JwtBearerAuth())],
+        self_service_link_request: SelfServiceLinkRequest,
+    ) -> TestStrategyResponse:
+
+        constructed_id = await StrategyHelper().get_component().construct_id(auth)
+        constructed_fa = (
+            await StrategyHelper()
+            .get_component()
+            .construct_fa(self_service_link_request.request_payload.fa)
+        )
+
+        return TestStrategyResponse(
+            constructed_id=constructed_id, constructed_fa=constructed_fa
+        )
+
     async def link(
         self,
         auth: Annotated[AuthCredentials, Depends(JwtBearerAuth())],
@@ -74,12 +106,17 @@ class SelfServiceController(BaseController):
             fa=constructed_fa,
             name=self_service_link_request.request_payload.name,
             phone_number=self_service_link_request.request_payload.phone_number,
-            additional_info={
-                STRATEGY_ID_KEY: self_service_link_request.request_payload.fa.strategy_id
-            },
+            additional_info=[
+                {
+                    STRATEGY_ID_KEY: self_service_link_request.request_payload.fa.strategy_id
+                }
+            ],
+            link_url=self._link_url,
         )
         self_service_link_response: SelfServiceLinkResponse = (
-            ResponseHelper().get_component().construct_link_response(mapper_response)
+            await ResponseHelper()
+            .get_component()
+            .construct_link_response(mapper_response)
         )
 
         return self_service_link_response
@@ -100,12 +137,16 @@ class SelfServiceController(BaseController):
             fa=constructed_fa,
             name=self_service_update_request.request_payload.name,
             phone_number=self_service_update_request.request_payload.phone_number,
-            additional_info={
-                STRATEGY_ID_KEY: self_service_update_request.request_payload.fa.strategy_id
-            },
+            additional_info=[
+                {
+                    STRATEGY_ID_KEY: self_service_update_request.request_payload.fa.strategy_id
+                }
+            ],
         )
         self_service_update_response: SelfServiceUpdateResponse = (
-            ResponseHelper().get_component().construct_update_response(mapper_response)
+            await ResponseHelper()
+            .get_component()
+            .construct_update_response(mapper_response)
         )
 
         return self_service_update_response
@@ -119,7 +160,9 @@ class SelfServiceController(BaseController):
             id=constructed_id
         )
         self_service_resolve_response: SelfServiceResolveResponse = (
-            ResponseHelper().get_component().construct_resolve_response(mapper_response)
+            await ResponseHelper()
+            .get_component()
+            .construct_resolve_response(mapper_response)
         )
 
         return self_service_resolve_response
@@ -127,13 +170,23 @@ class SelfServiceController(BaseController):
     async def unlink(
         self,
         auth: Annotated[AuthCredentials, Depends(JwtBearerAuth())],
+        self_service_unlink_request: SelfServiceUnlinkRequest,
     ) -> SelfServiceUnlinkResponse:
         constructed_id = await StrategyHelper().get_component().construct_id(auth)
+        constructed_fa = (
+            await StrategyHelper()
+            .get_component()
+            .construct_fa(self_service_unlink_request.request_payload.fa)
+        )
         mapper_response: MapperResponse = await self.id_mapper_interface.unlink(
-            id=constructed_id
+            id=constructed_id,
+            fa=constructed_fa,
+            unlink_url=self._unlink_url,
         )
         self_service_unlink_response: SelfServiceUnlinkResponse = (
-            ResponseHelper().get_component().construct_unlink_response(mapper_response)
+            await ResponseHelper()
+            .get_component()
+            .construct_unlink_response(mapper_response)
         )
 
         return self_service_unlink_response
