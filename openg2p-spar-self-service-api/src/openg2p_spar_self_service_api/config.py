@@ -27,21 +27,13 @@ class Settings(AuthSettings, BaseSettings):
     auth_api_link: ApiAuthSettings = ApiAuthSettings(enabled=True)
     auth_api_unlink: ApiAuthSettings = ApiAuthSettings(enabled=True)
     auth_api_update: ApiAuthSettings = ApiAuthSettings(enabled=True)
-    auth_get_resolve: ApiAuthSettings = ApiAuthSettings(enabled=True)
+    auth_api_resolve: ApiAuthSettings = ApiAuthSettings(enabled=True)
     auth_api_get_levels: ApiAuthSettings = ApiAuthSettings(enabled=True)
     auth_api_get_level_values: ApiAuthSettings = ApiAuthSettings(enabled=True)
-    auth_default_issuers: list = [
-        "https://esignet.dev.openg2p.net/v1/esignet",
-        "https://keycloak.dev.openg2p.net/realms/openg2p",
-    ]
-    auth_default_jwks_urls: list = [
-        "https://esignet.dev.openg2p.net/v1/esignet/oauth/.well-known/jwks.json",
-        "https://keycloak.dev.openg2p.net/realms/openg2p/protocol/openid-connect/certs",
-    ]
 
-    mapper_api_url: str = "http://localhost:8007/mapper/sync"
+    mapper_api_url: str = ""
     mapper_api_timeout: int = 60
-    mapper_link_path: str = "/link"
-    mapper_update_path: str = "/update"
-    mapper_resolve_path: str = "/resolve"
-    mapper_unlink_path: str = "/unlink"
+    mapper_link_path: str = ""
+    mapper_update_path: str = ""
+    mapper_resolve_path: str = ""
+    mapper_unlink_path: str = ""
