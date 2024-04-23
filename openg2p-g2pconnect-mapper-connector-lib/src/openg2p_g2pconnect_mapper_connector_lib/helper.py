@@ -32,7 +32,6 @@ from openg2p_g2pconnect_mapper_lib.schemas import (
 
 
 class MapperConnectorHelper(BaseService):
-
     async def construct_link_request(
         self,
         id: str,

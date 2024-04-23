@@ -37,7 +37,6 @@ class DfspController(BaseController):
         self,
         dfsp_level_request: DfspLevelRequest,
     ) -> DfspLevelResponse:
-
         results = await DfspLevel.get_level(
             parent=dfsp_level_request.request_payload.parent
         )

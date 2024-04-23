@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional
 from sqlalchemy import ForeignKey, Integer, String, select, Column
 from sqlalchemy.orm import relationship, Mapped
 from openg2p_fastapi_common.models import BaseORMModelWithTimes

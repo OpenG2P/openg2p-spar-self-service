@@ -77,7 +77,6 @@ class SelfServiceController(BaseController):
         auth: Annotated[AuthCredentials, Depends(JwtBearerAuth())],
         self_service_link_request: SelfServiceLinkRequest,
     ) -> TestStrategyResponse:
-
         constructed_id = await StrategyHelper().get_component().construct_id(auth)
         constructed_fa = (
             await StrategyHelper()
@@ -94,7 +93,6 @@ class SelfServiceController(BaseController):
         auth: Annotated[AuthCredentials, Depends(JwtBearerAuth())],
         self_service_link_request: SelfServiceLinkRequest,
     ) -> SelfServiceLinkResponse:
-
         constructed_id = await StrategyHelper().get_component().construct_id(auth)
         constructed_fa = (
             await StrategyHelper()

@@ -13,7 +13,6 @@ from ..schemas import STRATEGY_ID_KEY
 
 
 class StrategyHelper(BaseService):
-
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -24,9 +23,6 @@ class StrategyHelper(BaseService):
         )
 
     def _deconstruct(self, value: str, strategy: str) -> List[KeyValuePair]:
-        """
-        Deconstructs a value string using the provided regex strategy, returning key-value pairs.
-        """
         regex_res = re.match(strategy, value)
         if regex_res:
             regex_res = regex_res.groupdict()
@@ -37,7 +33,6 @@ class StrategyHelper(BaseService):
         self,
         auth: AuthCredentials,
     ) -> str:
-
         login_provider: LoginProvider = await LoginProvider.get_login_provider_from_iss(
             auth.iss
         )
@@ -59,7 +54,6 @@ class StrategyHelper(BaseService):
         return constructed_id
 
     async def construct_fa(self, fa: Fa) -> str:
-
         constructed_fa = await self._construct(
             [
                 KeyValuePair(
@@ -77,10 +71,6 @@ class StrategyHelper(BaseService):
         return constructed_fa
 
     async def deconstruct_fa(self, fa: str, additional_info: List[dict]) -> dict:
-        """
-        Deconstructs the 'fa' string based on a strategy obtained from additional_info where the
-        key is 'strategy_id'. Returns an instance of Fa filled with deconstructed values.
-        """
         strategy_id = additional_info[0].get(STRATEGY_ID_KEY)
         if strategy_id:
             strategy = await Strategy.get_strategy(
@@ -98,7 +88,6 @@ class StrategyHelper(BaseService):
         return {}
 
     async def deconstruct_fa_test(self, fa: str, strategy_id: int) -> dict:
-
         if strategy_id:
             strategy = await Strategy.get_strategy(
                 id=strategy_id,

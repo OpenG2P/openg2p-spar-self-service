@@ -4,7 +4,7 @@ from openg2p_fastapi_auth.models.orm.login_provider import (
     LoginProvider as OriginalLoginProvider,
 )
 from sqlalchemy import ForeignKey, Column, Integer
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, relationship
 
 from .strategy import Strategy
 
