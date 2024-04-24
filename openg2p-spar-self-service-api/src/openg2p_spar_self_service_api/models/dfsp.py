@@ -6,7 +6,7 @@ from sqlalchemy import Column, ForeignKey, Integer, String, select
 from sqlalchemy.ext.asyncio import async_sessionmaker
 from sqlalchemy.orm import Mapped, relationship
 
-from ..schemas import LevelTypeEnum
+from ..schemas import InputTypeEnum, LevelTypeEnum
 from .strategy import Strategy
 
 
@@ -14,8 +14,10 @@ class DfspLevel(BaseORMModelWithTimes):
     __tablename__ = "dfsp_levels"
 
     name: Mapped[str] = Column(String)
-    level_type: Mapped[str] = Column(String(20), default=LevelTypeEnum)
+    level_type: Mapped[str] = Column(String(35), default=LevelTypeEnum)
+    input_type: Mapped[Optional[str]] = Column(String, default=InputTypeEnum)
     parent: Mapped[Optional[int]] = Column(Integer, nullable=True)
+    validation_regex: Mapped[Optional[str]] = Column(String, nullable=True)
 
     class Config:
         orm_mode = True
@@ -51,7 +53,6 @@ class DfspLevelValue(BaseORMModelWithTimes):
     )
 
     strategy: Mapped[Optional[Strategy]] = relationship("Strategy")
-    validation_regex: Mapped[Optional[str]] = Column(String, nullable=True)
 
     class Config:
         orm_mode = True
