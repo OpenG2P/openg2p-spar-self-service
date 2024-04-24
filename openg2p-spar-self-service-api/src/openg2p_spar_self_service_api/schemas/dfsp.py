@@ -19,7 +19,7 @@ class LevelTypeEnum(Enum):
 
 class InputTypeEnum(Enum):
     INPUT = "input"
-    TEXT = "text"
+    SELECT = "select"
 
 
 class DfspLevelSchema(BaseModel):
