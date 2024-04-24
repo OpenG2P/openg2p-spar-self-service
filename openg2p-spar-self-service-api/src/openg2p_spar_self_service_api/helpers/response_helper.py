@@ -77,7 +77,7 @@ class ResponseHelper(BaseService):
                     await StrategyHelper()
                     .get_component()
                     .deconstruct_fa(mapper_response.fa, mapper_response.additional_info)
-                    if mapper_response.fa == "succ"
+                    if mapper_response.fa
                     else None
                 ),
                 name=mapper_response.name,
