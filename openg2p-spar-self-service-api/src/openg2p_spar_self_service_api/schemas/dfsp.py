@@ -1,8 +1,10 @@
+from enum import Enum
+from typing import List, Optional
+
+from pydantic import BaseModel
+
 from .request import SparRequest
 from .response import SparResponse
-from pydantic import BaseModel
-from typing import Optional, List
-from enum import Enum
 
 
 class LevelTypeEnum(Enum):

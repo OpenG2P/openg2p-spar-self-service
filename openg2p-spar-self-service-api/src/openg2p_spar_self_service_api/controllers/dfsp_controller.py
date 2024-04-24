@@ -2,16 +2,16 @@ from typing import List
 
 from openg2p_fastapi_common.controller import BaseController
 
+from ..models import DfspLevel, DfspLevelValue
 from ..schemas import (
+    DfspLevelRequest,
     DfspLevelResponse,
     DfspLevelSchema,
-    DfspLevelRequest,
     DfspLevelValueRequest,
-    DfspLevelValueSchema,
     DfspLevelValueResponse,
+    DfspLevelValueSchema,
     ResponseStatus,
 )
-from ..models import DfspLevel, DfspLevelValue
 
 
 class DfspController(BaseController):

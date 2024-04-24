@@ -1,8 +1,10 @@
+from typing import Any, Dict, List, Optional
+
+from pydantic import BaseModel
+
+from .dfsp import LevelTypeEnum
 from .request import SparRequest
 from .response import SparResponse
-from pydantic import BaseModel
-from typing import Optional, List, Dict, Any
-from .dfsp import LevelTypeEnum
 
 STRATEGY_ID_KEY = "strategy_id"
 

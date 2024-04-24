@@ -1,15 +1,16 @@
-from openg2p_fastapi_common.service import BaseService
-from openg2p_fastapi_auth.models.credentials import AuthCredentials
-
-import orjson
 import re
 from typing import List
+
+import orjson
+from openg2p_fastapi_auth.models.credentials import AuthCredentials
+from openg2p_fastapi_common.service import BaseService
+
+from ..models import LoginProvider, Strategy
 from ..schemas import (
-    KeyValuePair,
+    STRATEGY_ID_KEY,
     Fa,
+    KeyValuePair,
 )
-from ..models import Strategy, LoginProvider
-from ..schemas import STRATEGY_ID_KEY
 
 
 class StrategyHelper(BaseService):
