@@ -28,6 +28,11 @@ class ResponseHelper(BaseService):
                 if mapper_response.status == "succ"
                 else ResponseStatus.FAILURE
             ),
+            response_error_code=(
+                mapper_response.mapper_error_code
+                if mapper_response.mapper_error_code
+                else None
+            ),
             response_payload=SelfServiceLinkResponsePayload(),
             response_message=(
                 mapper_response.mapper_error_message
@@ -62,12 +67,17 @@ class ResponseHelper(BaseService):
                 if mapper_response.status == "succ"
                 else ResponseStatus.FAILURE
             ),
+            response_error_code=(
+                mapper_response.mapper_error_code
+                if mapper_response.mapper_error_code
+                else None
+            ),
             response_payload=SelfServiceResolveResponsePayload(
                 fa=(
                     await StrategyHelper()
                     .get_component()
                     .deconstruct_fa(mapper_response.fa, mapper_response.additional_info)
-                    if mapper_response.status == "succ"
+                    if mapper_response.fa == "succ"
                     else None
                 ),
                 name=mapper_response.name,
@@ -89,6 +99,11 @@ class ResponseHelper(BaseService):
                 ResponseStatus.SUCCESS
                 if mapper_response.status == "succ"
                 else ResponseStatus.FAILURE
+            ),
+            response_error_code=(
+                mapper_response.mapper_error_code
+                if mapper_response.mapper_error_code
+                else None
             ),
             response_payload=SelfServiceUnlinkResponsePayload(),
             response_message=(
