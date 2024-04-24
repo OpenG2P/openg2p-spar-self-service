@@ -1,4 +1,5 @@
-from openg2p_mapper_interface_lib import MapperInterface, MapperResponse
+from openg2p_mapper_interface_lib.interface import MapperInterface
+from openg2p_mapper_interface_lib.response import MapperResponse
 from typing import Optional, List, Dict, Any
 
 from openg2p_g2pconnect_mapper_lib.schemas import (
