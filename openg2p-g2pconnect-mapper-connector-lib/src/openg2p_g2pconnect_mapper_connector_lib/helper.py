@@ -103,7 +103,10 @@ class MapperConnectorHelper(BaseService):
             transaction_id=str(uuid.uuid4()),
             resolve_request=[
                 SingleResolveRequest(
-                    reference_id=str(uuid.uuid4()), timestamp=datetime.now(), id=id
+                    reference_id=str(uuid.uuid4()),
+                    timestamp=datetime.now(),
+                    id=id,
+                    scope="details",
                 )
             ],
         )
