@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import AsyncMock, patch
 from ..connector import MapperConnector
-from openg2p_mapper_interface_lib import MapperResponse
+from openg2p_mapper_interface_lib.response import MapperResponse
 
 
 @pytest.fixture()
