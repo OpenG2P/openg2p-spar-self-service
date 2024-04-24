@@ -1,12 +1,13 @@
 from typing import Optional
-from sqlalchemy import ForeignKey, Integer, String, select, Column
-from sqlalchemy.orm import relationship, Mapped
-from openg2p_fastapi_common.models import BaseORMModelWithTimes
-from sqlalchemy.ext.asyncio import async_sessionmaker
-from openg2p_fastapi_common.context import dbengine
 
-from .strategy import Strategy
+from openg2p_fastapi_common.context import dbengine
+from openg2p_fastapi_common.models import BaseORMModelWithTimes
+from sqlalchemy import Column, ForeignKey, Integer, String, select
+from sqlalchemy.ext.asyncio import async_sessionmaker
+from sqlalchemy.orm import Mapped, relationship
+
 from ..schemas import LevelTypeEnum
+from .strategy import Strategy
 
 
 class DfspLevel(BaseORMModelWithTimes):

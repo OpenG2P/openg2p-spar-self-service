@@ -2,15 +2,15 @@ from openg2p_fastapi_common.service import BaseService
 from openg2p_mapper_interface_lib import MapperResponse
 
 from ..schemas import (
-    SelfServiceLinkResponse,
     ResponseStatus,
+    SelfServiceLinkResponse,
     SelfServiceLinkResponsePayload,
-    SelfServiceUpdateResponse,
-    SelfServiceUpdateResponsePayload,
     SelfServiceResolveResponse,
     SelfServiceResolveResponsePayload,
     SelfServiceUnlinkResponse,
     SelfServiceUnlinkResponsePayload,
+    SelfServiceUpdateResponse,
+    SelfServiceUpdateResponsePayload,
 )
 from .strategy_helper import StrategyHelper
 

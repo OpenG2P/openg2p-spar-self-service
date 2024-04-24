@@ -1,9 +1,10 @@
-from sqlalchemy import String, select, Column
-from sqlalchemy.orm import relationship
 from enum import Enum
-from sqlalchemy.ext.asyncio import async_sessionmaker
+
 from openg2p_fastapi_common.context import dbengine
 from openg2p_fastapi_common.models import BaseORMModelWithTimes
+from sqlalchemy import Column, String, select
+from sqlalchemy.ext.asyncio import async_sessionmaker
+from sqlalchemy.orm import relationship
 
 
 class StrategyType(Enum):

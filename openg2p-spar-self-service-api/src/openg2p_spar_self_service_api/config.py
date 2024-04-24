@@ -3,7 +3,6 @@ from openg2p_fastapi_auth.config import Settings as AuthSettings
 from openg2p_fastapi_common.config import Settings as BaseSettings
 from pydantic_settings import SettingsConfigDict
 
-
 from . import __version__
 
 
