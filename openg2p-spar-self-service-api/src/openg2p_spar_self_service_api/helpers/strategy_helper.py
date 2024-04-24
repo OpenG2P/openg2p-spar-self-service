@@ -62,7 +62,7 @@ class StrategyHelper(BaseService):
                     value=(
                         value
                         if isinstance(value, str)
-                        else orjson.dumps(value).decode()
+                        else orjson.dumps(value).decode().strip('"')
                     ),
                 )
                 for key, value in fa.dict().items()
