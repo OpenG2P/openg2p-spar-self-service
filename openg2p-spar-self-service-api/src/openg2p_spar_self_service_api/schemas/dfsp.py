@@ -17,11 +17,18 @@ class LevelTypeEnum(Enum):
     EMAIL_ADDRESS = "email_address"
 
 
+class InputTypeEnum(Enum):
+    INPUT = "input"
+    TEXT = "text"
+
+
 class DfspLevelSchema(BaseModel):
     id: int
     name: str
     level_type: LevelTypeEnum
+    input_type: InputTypeEnum = None
     parent: Optional[int] = None
+    validation_regex: Optional[str] = None
 
 
 class DfspLevelRequestPayload(BaseModel):
@@ -40,10 +47,10 @@ class DfspLevelValueSchema(BaseModel):
     id: int
     name: str
     code: str
+    description: Optional[str]
     parent: Optional[int]
     level_id: int
     strategy_id: Optional[int]
-    validation_regex: Optional[str] = None
 
 
 class DfspLevelValueRequestPayload(BaseModel):

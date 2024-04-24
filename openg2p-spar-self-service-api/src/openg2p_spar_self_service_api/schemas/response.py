@@ -22,6 +22,7 @@ class ResponsePagination(BaseModel):
 class SparResponse(BaseModel):
     response_header: Optional[ResponseHeader] = None
     response_status: ResponseStatus
+    response_error_code: Optional[str] = None
     response_message: Optional[str] = None
     response_pagination: Optional[ResponsePagination] = ResponsePagination()
     response_payload: Optional[object] = None
