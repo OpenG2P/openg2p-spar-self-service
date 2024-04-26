@@ -1,4 +1,4 @@
-from typing import Annotated, Optional
+from typing import Annotated
 
 from fastapi import Depends
 from openg2p_fastapi_auth.dependencies import JwtBearerAuth
@@ -14,7 +14,6 @@ from ..schemas import (
     SelfServiceLinkRequest,
     SelfServiceLinkResponse,
     SelfServiceResolveResponse,
-    SelfServiceUnlinkRequest,
     SelfServiceUnlinkResponse,
     SelfServiceUpdateRequest,
     SelfServiceUpdateResponse,
