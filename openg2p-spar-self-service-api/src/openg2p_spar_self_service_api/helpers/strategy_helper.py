@@ -84,7 +84,7 @@ class StrategyHelper(BaseService):
                 deconstructed_fa = {
                     pair.key: pair.value for pair in deconstructed_pairs
                 }
-
+                deconstructed_fa["strategy_id"] = strategy_id
                 return deconstructed_fa
         return {}
 
