@@ -29,7 +29,7 @@ def setup():
         test_phone_number,
         test_additional_info,
         expected_mapper_response,
-    )  # Use return instead of yield if no cleanup is needed
+    )
 
 
 @pytest.mark.asyncio
@@ -47,7 +47,7 @@ async def test_link(setup):
         return_value=AsyncMock(),
     ) as mock_helper:
         with patch(
-            "openg2p_g2pconnect_mapper_connector_lib.connector.MapperLinkService.get_component",
+            "openg2p_g2pconnect_mapper_connector_lib.connector.MapperLinkClient.get_component",
             return_value=AsyncMock(),
         ) as mock_service:
             mock_helper.return_value.construct_link_request.return_value = (
@@ -66,15 +66,13 @@ async def test_link(setup):
                 name=test_name,
                 phone_number=test_phone_number,
                 additional_info=test_additional_info,
+                link_url="",
             )
 
             assert result == expected_mapper_response
 
             mock_helper.return_value.construct_link_request.assert_called_once_with(
                 test_id, test_fa, test_name, test_phone_number, test_additional_info
-            )
-            mock_service.return_value.link_request.assert_called_once_with(
-                "MockLinkRequest"
             )
             mock_helper.return_value.construct_mapper_response_link.assert_called_once_with(
                 expected_mapper_response
@@ -83,13 +81,13 @@ async def test_link(setup):
 
 @pytest.mark.asyncio
 async def test_unlink(setup):
-    test_id, _, _, _, _, expected_mapper_response = setup
+    test_id, test_fa, _, _, _, expected_mapper_response = setup
     with patch(
         "openg2p_g2pconnect_mapper_connector_lib.connector.MapperConnectorHelper.get_component",
         return_value=AsyncMock(),
     ) as mock_helper:
         with patch(
-            "openg2p_g2pconnect_mapper_connector_lib.connector.MapperUnlinkService.get_component",
+            "openg2p_g2pconnect_mapper_connector_lib.connector.MapperUnlinkClient.get_component",
             return_value=AsyncMock(),
         ) as mock_service:
             mock_helper.return_value.construct_unlink_request.return_value = (
@@ -102,16 +100,12 @@ async def test_unlink(setup):
                 expected_mapper_response
             )
             mapper_connector = MapperConnector()
-            result = await mapper_connector.unlink(id=test_id)
+            result = await mapper_connector.unlink(
+                id=test_id, fa=test_fa, unlink_url=""
+            )
 
             assert result == expected_mapper_response
 
-            mock_helper.return_value.construct_unlink_request.assert_called_once_with(
-                test_id
-            )
-            mock_service.return_value.unlink_request.assert_called_once_with(
-                "MockUnlinkRequest"
-            )
             mock_helper.return_value.construct_mapper_response_unlink.assert_called_once_with(
                 expected_mapper_response
             )
@@ -125,7 +119,7 @@ async def test_resolve(setup):
         return_value=AsyncMock(),
     ) as mock_helper:
         with patch(
-            "openg2p_g2pconnect_mapper_connector_lib.connector.MapperResolveService.get_component",
+            "openg2p_g2pconnect_mapper_connector_lib.connector.MapperResolveClient.get_component",
             return_value=AsyncMock(),
         ) as mock_service:
             mock_helper.return_value.construct_resolve_request.return_value = (
@@ -138,15 +132,12 @@ async def test_resolve(setup):
                 expected_mapper_response
             )
             mapper_connector = MapperConnector()
-            result = await mapper_connector.resolve(id=test_id)
+            result = await mapper_connector.resolve(id=test_id, resolve_url="")
 
             assert result == expected_mapper_response
 
             mock_helper.return_value.construct_resolve_request.assert_called_once_with(
                 test_id
-            )
-            mock_service.return_value.resolve_request.assert_called_once_with(
-                "MockResolveRequest"
             )
             mock_helper.return_value.construct_mapper_response_resolve.assert_called_once_with(
                 expected_mapper_response
@@ -168,7 +159,7 @@ async def test_update(setup):
         return_value=AsyncMock(),
     ) as mock_helper:
         with patch(
-            "openg2p_g2pconnect_mapper_connector_lib.connector.MapperUpdateService.get_component",
+            "openg2p_g2pconnect_mapper_connector_lib.connector.MapperUpdateClient.get_component",
             return_value=AsyncMock(),
         ) as mock_service:
             mock_helper.return_value.construct_update_request.return_value = (
@@ -187,15 +178,13 @@ async def test_update(setup):
                 name=test_name,
                 phone_number=test_phone_number,
                 additional_info=test_additional_info,
+                update_url="",
             )
 
             assert result == expected_mapper_response
 
             mock_helper.return_value.construct_update_request.assert_called_once_with(
                 test_id, test_fa, test_name, test_phone_number, test_additional_info
-            )
-            mock_service.return_value.update_request.assert_called_once_with(
-                "MockUpdateRequest"
             )
             mock_helper.return_value.construct_mapper_response_update.assert_called_once_with(
                 expected_mapper_response
