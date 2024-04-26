@@ -19,14 +19,13 @@ jobs:
           python-version: "3.10"
       - name: Install app
         run: |
-          python -m pip install git+https://github.com/openg2p/openg2p-fastapi-common.git@develop\#egg=openg2p-fastapi-common\&subdirectory=openg2p-fastapi-common
-          python -m pip install git+https://github.com/openg2p/openg2p-fastapi-common.git@develop\#egg=openg2p-fastapi-auth\&subdirectory=openg2p-fastapi-auth
-          python -m pip install git+https://github.com/openg2p/openg2p-g2pconnect-common-lib.git@develop\#egg=openg2p-g2pconnect-common-lib
-          python -m pip install git+https://github.com/OpenG2P/openg2p-g2pconnect-common@develop\#egg=openg2p-g2pconnect-mapper-lib\&subdirectory=openg2p-g2pconnect-mapper-lib 
-          python -m pip install git+https://github.com/OpenG2P/openg2p-spar-self-service@develop\#egg=openg2p-mapper-interface-lib\&subdirectory=openg2p-mapper-interface-lib
-          python -m pip install git+https://github.com/OpenG2P/openg2p-spar-self-service@develop\#egg=openg2p-g2pconnect-mapper-connector-lib\&subdirectory=openg2p-g2pconnect-mapper-connector-lib
-
-          python -m pip install .
+          python -m pip install git+https://github.com/openg2p/openg2p-fastapi-common@develop\#subdirectory=openg2p-fastapi-common
+          python -m pip install git+https://github.com/openg2p/openg2p-fastapi-common@develop\#subdirectory=openg2p-fastapi-auth
+          python -m pip install git+https://github.com/OpenG2P/openg2p-g2pconnect-common@develop\#subdirectory=openg2p-g2pconnect-common-lib
+          python -m pip install git+https://github.com/OpenG2P/openg2p-g2pconnect-common@develop\#subdirectory=openg2p-g2pconnect-mapper-lib
+          python -m pip install ./openg2p-mapper-interface-lib
+          python -m pip install ./openg2p-g2pconnect-mapper-connector-lib
+          python -m pip install ./openg2p-spar-self-service-api
       - name: Generate openapi json
         run: |
           mkdir -p api-docs/generated
@@ -43,10 +42,10 @@ jobs:
           message: "Generated new openapi.json on push to ${{ github.event.inputs.git-ref }}"
           add: "api-docs/generated/openapi.json"
       - name: Setup nodejs
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         if: env.OPENAPI_CHANGED == 'true'
         with:
-          node-version: '14'
+          node-version: 18
       - name: Publish to stoplight
         if: env.OPENAPI_CHANGED == 'true'
         run: |

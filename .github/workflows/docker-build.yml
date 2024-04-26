@@ -34,7 +34,7 @@ jobs:
           echo VERSION=$VERSION
 
           docker build . \
-            --file openg2p-spar-self-service-api/Dockerfile \
+            --file Dockerfile \
             --tag $IMAGE_ID:$VERSION
 
           docker push $IMAGE_ID:$VERSION
