@@ -173,7 +173,6 @@ class SelfServiceController(BaseController):
     async def unlink(
         self,
         auth: Annotated[AuthCredentials, Depends(JwtBearerAuth())],
-        self_service_unlink_request: Optional[SelfServiceUnlinkRequest],
     ) -> SelfServiceUnlinkResponse:
         constructed_id = await StrategyHelper().get_component().construct_id(auth)
 

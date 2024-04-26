@@ -18,7 +18,7 @@ class MapperInterface(BaseService):
     ) -> MapperResponse:
         raise NotImplementedError()
 
-    async def unlink(self, id: str, fa: str, unlink_url: str) -> MapperResponse:
+    async def unlink(self, id: str, unlink_url: str) -> MapperResponse:
         raise NotImplementedError()
 
     async def resolve(self, id: str, resolve_url: str) -> MapperResponse:
