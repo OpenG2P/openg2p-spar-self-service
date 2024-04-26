@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, Optional
 
 from fastapi import Depends
 from openg2p_fastapi_auth.dependencies import JwtBearerAuth
@@ -173,17 +173,12 @@ class SelfServiceController(BaseController):
     async def unlink(
         self,
         auth: Annotated[AuthCredentials, Depends(JwtBearerAuth())],
-        self_service_unlink_request: SelfServiceUnlinkRequest,
+        self_service_unlink_request: Optional[SelfServiceUnlinkRequest],
     ) -> SelfServiceUnlinkResponse:
         constructed_id = await StrategyHelper().get_component().construct_id(auth)
-        constructed_fa = (
-            await StrategyHelper()
-            .get_component()
-            .construct_fa(self_service_unlink_request.request_payload.fa)
-        )
+
         mapper_response: MapperResponse = await self.id_mapper_interface.unlink(
             id=constructed_id,
-            fa=constructed_fa,
             unlink_url=self._unlink_url,
         )
         self_service_unlink_response: SelfServiceUnlinkResponse = (
