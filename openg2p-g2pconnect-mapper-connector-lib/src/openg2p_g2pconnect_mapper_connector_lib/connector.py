@@ -54,10 +54,10 @@ class MapperConnector(MapperInterface):
         )
         return mapper_response
 
-    async def unlink(self, id: str, fa: str, unlink_url: str) -> MapperResponse:
+    async def unlink(self, id: str, unlink_url: str) -> MapperResponse:
         mapper_connector_helper = MapperConnectorHelper.get_component()
         unlink_request: UnlinkRequest = (
-            await mapper_connector_helper.construct_unlink_request(id=id, fa=fa)
+            await mapper_connector_helper.construct_unlink_request(id=id)
         )
         unlink_response: (
             UnlinkResponse

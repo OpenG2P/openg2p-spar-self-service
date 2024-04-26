@@ -100,9 +100,7 @@ async def test_unlink(setup):
                 expected_mapper_response
             )
             mapper_connector = MapperConnector()
-            result = await mapper_connector.unlink(
-                id=test_id, fa=test_fa, unlink_url=""
-            )
+            result = await mapper_connector.unlink(id=test_id, unlink_url="")
 
             assert result == expected_mapper_response
 

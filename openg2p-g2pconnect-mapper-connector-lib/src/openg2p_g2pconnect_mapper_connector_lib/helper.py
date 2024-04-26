@@ -70,7 +70,7 @@ class MapperConnectorHelper(BaseService):
 
         return link_request
 
-    async def construct_unlink_request(self, id: str, fa: str) -> UnlinkRequest:
+    async def construct_unlink_request(self, id: str) -> UnlinkRequest:
         unlink_request_message = UnlinkRequestMessage(
             transaction_id=str(uuid.uuid4()),
             unlink_request=[
@@ -78,7 +78,6 @@ class MapperConnectorHelper(BaseService):
                     reference_id=str(uuid.uuid4()),
                     timestamp=datetime.now(),
                     id=id,
-                    fa=fa,
                 )
             ],
         )
