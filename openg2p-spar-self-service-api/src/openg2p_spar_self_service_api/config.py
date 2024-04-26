@@ -8,7 +8,7 @@ from . import __version__
 
 class Settings(AuthSettings, BaseSettings):
     model_config = SettingsConfigDict(
-        env_prefix="spar_core_", env_file=".env", extra="allow"
+        env_prefix="spar_selfservice_", env_file=".env", extra="allow"
     )
 
     openapi_title: str = "SPAR Self Service API"
