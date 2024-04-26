@@ -23,16 +23,18 @@ jobs:
           python -m pip install git+https://github.com/openg2p/openg2p-fastapi-common@develop\#subdirectory=openg2p-fastapi-auth
           python -m pip install git+https://github.com/OpenG2P/openg2p-g2pconnect-common@develop\#subdirectory=openg2p-g2pconnect-common-lib
           python -m pip install git+https://github.com/OpenG2P/openg2p-g2pconnect-common@develop\#subdirectory=openg2p-g2pconnect-mapper-lib
-          python -m pip install ./openg2p-mapper-interface-lib
-          python -m pip install ./openg2p-g2pconnect-mapper-connector-lib
+          python -m pip install ./openg2p-spar-self-service-mapper-interface-lib
+          python -m pip install ./openg2p-spar-self-service-g2pconnect-mapper-connector-lib
           python -m pip install ./openg2p-spar-self-service-api
       - name: Generate openapi json
         run: |
           mkdir -p api-docs/generated
           python3 main.py getOpenAPI api-docs/generated/openapi.json
           if ! [ -z "$(git status --porcelain=v1 2>/dev/null -- api-docs/generated/openapi.json)" ]; then
-            export OPENAPI_CHANGED="true"
-            echo OPENAPI_CHANGED=$OPENAPI_CHANGED >> $GITHUB_ENV
+            if [[ ${{ github.repository_owner }} == 'openg2p' ]]; then
+              export OPENAPI_CHANGED="true"
+              echo OPENAPI_CHANGED=$OPENAPI_CHANGED >> $GITHUB_ENV
+            fi
           fi
       - name: Commit Changes
         uses: EndBug/add-and-commit@v7

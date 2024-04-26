@@ -1,12 +1,11 @@
-from .response import MapperResponse
-from typing import Optional, List, Dict, Any
+from typing import Any, Dict, List, Optional
+
 from openg2p_fastapi_common.service import BaseService
+
+from .response import MapperResponse
 
 
 class MapperInterface(BaseService):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
     async def link(
         self,
         id: str,

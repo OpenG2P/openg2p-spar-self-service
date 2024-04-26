@@ -26,8 +26,8 @@ RUN python3 -m pip install \
   git+https://github.com/openg2p/openg2p-fastapi-common@develop\#subdirectory=openg2p-fastapi-auth \
   git+https://github.com/OpenG2P/openg2p-g2pconnect-common@develop\#subdirectory=openg2p-g2pconnect-common-lib \
   git+https://github.com/OpenG2P/openg2p-g2pconnect-common@develop\#subdirectory=openg2p-g2pconnect-mapper-lib \
-  ./src/openg2p-mapper-interface-lib \
-  ./src/openg2p-g2pconnect-mapper-connector-lib \
+  ./src/openg2p-spar-self-service-mapper-interface-lib \
+  ./src/openg2p-spar-self-service-g2pconnect-mapper-connector-lib \
   ./src/openg2p-spar-self-service-api
 
 CMD python3 main.py migrate; \

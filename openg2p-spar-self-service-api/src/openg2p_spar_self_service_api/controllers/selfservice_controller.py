@@ -1,11 +1,11 @@
-from typing import Annotated, Optional
+from typing import Annotated
 
 from fastapi import Depends
 from openg2p_fastapi_auth.dependencies import JwtBearerAuth
 from openg2p_fastapi_auth.models.credentials import AuthCredentials
 from openg2p_fastapi_common.controller import BaseController
-from openg2p_mapper_interface_lib.interface import MapperInterface
-from openg2p_mapper_interface_lib.response import MapperResponse
+from openg2p_spar_self_service_mapper_interface_lib.interface import MapperInterface
+from openg2p_spar_self_service_mapper_interface_lib.response import MapperResponse
 
 from ..config import Settings
 from ..helpers import ResponseHelper, StrategyHelper
@@ -14,7 +14,6 @@ from ..schemas import (
     SelfServiceLinkRequest,
     SelfServiceLinkResponse,
     SelfServiceResolveResponse,
-    SelfServiceUnlinkRequest,
     SelfServiceUnlinkResponse,
     SelfServiceUpdateRequest,
     SelfServiceUpdateResponse,
