@@ -27,4 +27,4 @@ Repository = "https://github.com/OpenG2P/openg2p-spar-self-service"
 Source = "https://github.com/OpenG2P/openg2p-spar-self-service"
 
 [tool.hatch.version]
-path = "src/openg2p_spar_self_service_mapper_interface_lib/__init__.py"
+path = "src/openg2p_spar_mapper_interface_lib/__init__.py"

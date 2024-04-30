@@ -16,8 +16,8 @@ from openg2p_g2pconnect_mapper_lib.schemas import (
     UpdateRequest,
     UpdateResponse,
 )
-from openg2p_spar_self_service_mapper_interface_lib.interface import MapperInterface
-from openg2p_spar_self_service_mapper_interface_lib.response import MapperResponse
+from openg2p_spar_mapper_interface_lib.interface import MapperInterface
+from openg2p_spar_mapper_interface_lib.response import MapperResponse
 
 from .helper import MapperConnectorHelper
 
