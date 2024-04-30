@@ -1,6 +1,6 @@
 # Git
 .git
-src/openg2p_spar_self_service_api/.gitignore
+.gitignore
 .gitattributes
 
 
@@ -11,7 +11,7 @@ src/openg2p_spar_self_service_api/.gitignore
 
 # Docker
 docker-compose.yml
-../../openg2p-spar-self-service-api/Dockerfile
+Dockerfile
 .docker
 .dockerignore
 

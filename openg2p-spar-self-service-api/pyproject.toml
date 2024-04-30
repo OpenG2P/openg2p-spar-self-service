@@ -7,7 +7,7 @@ name = "openg2p-spar-self-service-api"
 authors = [
   { name="OpenG2P", email="info@openg2p.org" },
 ]
-description = "OpenG2P Spar Self Service API"
+description = "OpenG2P SPAR Self Service API"
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [
@@ -16,6 +16,9 @@ classifiers = [
   "Operating System :: OS Independent",
 ]
 dependencies = [
+  "openg2p-fastapi-common",
+  "openg2p-fastapi-auth",
+  "openg2p-spar-self-service-mapper-interface-lib",
 ]
 dynamic = ["version"]
 

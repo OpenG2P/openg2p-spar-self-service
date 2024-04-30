@@ -1,5 +1,5 @@
 from openg2p_fastapi_common.service import BaseService
-from openg2p_mapper_interface_lib.response import MapperResponse
+from openg2p_spar_self_service_mapper_interface_lib.response import MapperResponse
 
 from ..schemas import (
     ResponseStatus,
@@ -16,9 +16,6 @@ from .strategy_helper import StrategyHelper
 
 
 class ResponseHelper(BaseService):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
     async def construct_link_response(
         self, mapper_response: MapperResponse
     ) -> SelfServiceLinkResponse:

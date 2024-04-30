@@ -1,34 +1,32 @@
-from datetime import datetime
 import uuid
-from typing import Optional, List, Dict, Any
+from datetime import datetime
+from typing import Any, Dict, List, Optional
 
 from openg2p_fastapi_common.service import BaseService
+from openg2p_g2pconnect_common_lib.schemas import RequestHeader
 from openg2p_g2pconnect_mapper_lib.schemas import (
     LinkRequest,
     LinkRequestMessage,
-    SingleLinkRequest,
-    SingleUnlinkRequest,
-    UnlinkRequestMessage,
-    UnlinkRequest,
-    SingleResolveRequest,
-    ResolveRequestMessage,
-    ResolveRequest,
-    SingleUpdateRequest,
-    UpdateRequestMessage,
-    UpdateRequest,
     LinkResponse,
-    UnlinkResponse,
-    ResolveResponse,
-    UpdateResponse,
-)
-from openg2p_g2pconnect_common_lib.schemas import RequestHeader
-from openg2p_mapper_interface_lib.interface import MapperResponse
-from openg2p_g2pconnect_mapper_lib.schemas import (
     LinkStatusReasonCode,
-    UnlinkStatusReasonCode,
+    ResolveRequest,
+    ResolveRequestMessage,
+    ResolveResponse,
     ResolveStatusReasonCode,
+    SingleLinkRequest,
+    SingleResolveRequest,
+    SingleUnlinkRequest,
+    SingleUpdateRequest,
+    UnlinkRequest,
+    UnlinkRequestMessage,
+    UnlinkResponse,
+    UnlinkStatusReasonCode,
+    UpdateRequest,
+    UpdateRequestMessage,
+    UpdateResponse,
     UpdateStatusReasonCode,
 )
+from openg2p_spar_self_service_mapper_interface_lib.response import MapperResponse
 
 
 class MapperConnectorHelper(BaseService):

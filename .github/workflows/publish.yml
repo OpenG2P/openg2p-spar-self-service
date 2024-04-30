@@ -15,9 +15,24 @@ jobs:
         python-version: "3.10"
     - name: Install build dependencies
       run: pip install build
-    - name: Build distribution
-      run: python -m build
-    - name: Publish
+    - name: Build Interface
+      run: python -m build ./openg2p-spar-self-service-mapper-interface-lib
+    - name: Build Connector
+      run: python -m build ./openg2p-spar-self-service-g2pconnect-mapper-connetor-lib
+    - name: Build Selfservice api
+      run: python -m build ./openg2p-spar-self-service-api
+    - name: Publish Interface
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}
+        packages-dir: openg2p-spar-self-service-mapper-interface-lib/dist
+    - name: Publish Connector
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}
+        packages-dir: openg2p-spar-self-service-g2pconnect-mapper-connetor-lib/dist
+    - name: Publish Selfservice API
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}
+        packages-dir: openg2p-spar-self-service-api/dist

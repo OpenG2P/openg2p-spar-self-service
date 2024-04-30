@@ -14,9 +14,6 @@ from ..schemas import (
 
 
 class StrategyHelper(BaseService):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
     async def _construct(self, values: List[KeyValuePair], strategy_id: int) -> str:
         strategy: Strategy = await Strategy().get_strategy(id=strategy_id)
         return strategy.construct_strategy.format(
