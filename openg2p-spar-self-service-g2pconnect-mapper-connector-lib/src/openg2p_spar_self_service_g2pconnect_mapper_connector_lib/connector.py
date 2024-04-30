@@ -1,34 +1,28 @@
-from openg2p_mapper_interface_lib.interface import MapperInterface
-from openg2p_mapper_interface_lib.response import MapperResponse
-from typing import Optional, List, Dict, Any
+from typing import Any, Dict, List, Optional
 
-from openg2p_g2pconnect_mapper_lib.schemas import (
-    LinkRequest,
-    UnlinkRequest,
-    UpdateRequest,
-    ResolveRequest,
-    LinkResponse,
-    UnlinkResponse,
-    UpdateResponse,
-    ResolveResponse,
-)
 from openg2p_g2pconnect_mapper_lib.client import (
     MapperLinkClient,
+    MapperResolveClient,
     MapperUnlinkClient,
     MapperUpdateClient,
-    MapperResolveClient,
 )
+from openg2p_g2pconnect_mapper_lib.schemas import (
+    LinkRequest,
+    LinkResponse,
+    ResolveRequest,
+    ResolveResponse,
+    UnlinkRequest,
+    UnlinkResponse,
+    UpdateRequest,
+    UpdateResponse,
+)
+from openg2p_spar_self_service_mapper_interface_lib.interface import MapperInterface
+from openg2p_spar_self_service_mapper_interface_lib.response import MapperResponse
 
 from .helper import MapperConnectorHelper
-from .config import Settings
-
-_config = Settings.get_config(strict=False)
 
 
 class MapperConnector(MapperInterface):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
     async def link(
         self,
         id: str,
