@@ -40,13 +40,13 @@ jobs:
       - name: Install test requirements
         run: |
           python -m pip install -r test-requirements.txt
-          python -m pip install -e ./openg2p-spar-self-service-mapper-interface-lib
-          python -m pip install -e ./openg2p-spar-self-service-g2pconnect-mapper-connector-lib
+          python -m pip install -e ./openg2p-spar-mapper-interface-lib
+          python -m pip install -e ./openg2p-spar-g2pconnect-mapper-connector-lib
           python -m pip install -e ./openg2p-spar-self-service-api
       - name: Run test suite
         run: |
-          pytest --cov-branch --cov-report=term-missing --cov=openg2p_spar_self_service_mapper_interface_lib --cov=tests openg2p-spar-self-service-mapper-interface-lib
-          pytest --cov-branch --cov-report=term-missing --cov=openg2p_spar_self_service_g2pconnect_mapper_connector_lib --cov=tests openg2p-spar-self-service-g2pconnect-mapper-connector-lib --cov-append
+          pytest --cov-branch --cov-report=term-missing --cov=openg2p_spar_self_service_mapper_interface_lib --cov=tests openg2p-spar-mapper-interface-lib
+          pytest --cov-branch --cov-report=term-missing --cov=openg2p_spar_self_service_g2pconnect_mapper_connector_lib --cov=tests openg2p-spar-g2pconnect-mapper-connector-lib --cov-append
           pytest --cov-branch --cov-report=term-missing --cov=openg2p_spar_self_service_api --cov=tests openg2p-spar-self-service-api --cov-append
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
