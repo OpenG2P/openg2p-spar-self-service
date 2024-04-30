@@ -1,5 +1,5 @@
 from openg2p_fastapi_common.service import BaseService
-from openg2p_spar_self_service_mapper_interface_lib.response import MapperResponse
+from openg2p_spar_mapper_interface_lib.response import MapperResponse
 
 from ..schemas import (
     ResponseStatus,

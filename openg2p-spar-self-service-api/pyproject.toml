@@ -18,7 +18,7 @@ classifiers = [
 dependencies = [
   "openg2p-fastapi-common",
   "openg2p-fastapi-auth",
-  "openg2p-spar-self-service-mapper-interface-lib",
+  "openg2p-spar-mapper-interface-lib",
 ]
 dynamic = ["version"]
 
