@@ -12,14 +12,11 @@ jobs:
     steps:
     - name: Set up Python
       uses: actions/setup-python@v4
+      uses: actions/checkout@v3
       with:
         python-version: "3.10"
     - name: Install build dependencies
       run: pip install build
-    - name: Go to the root directory
-      run: cd ..
-    - name: Display Current Directory
-      run: pwd
     - name: Build Interface
       run: python -m build ./openg2p-spar-mapper-interface-lib
     - name: Build Connector
