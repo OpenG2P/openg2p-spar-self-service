@@ -16,10 +16,14 @@ jobs:
         python-version: "3.10"
     - name: Install build dependencies
       run: pip install build
+    - name: Display Current Directory
+      run: pwd
+    - name: List Files
+      run: ls -l
     - name: Build Interface
       run: python -m build ./openg2p-spar-mapper-interface-lib
     - name: Build Connector
-      run: python -m build ./openg2p-spar-g2pconnect-mapper-connetor-lib
+      run: python -m build ./openg2p-spar-g2pconnect-mapper-connector-lib
     - name: Build Selfservice api
       run: python -m build ./openg2p-spar-self-service-api
     - name: Publish Interface
