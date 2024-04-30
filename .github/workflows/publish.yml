@@ -32,7 +32,7 @@ jobs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}
-        packages-dir: openg2p-spar-g2pconnect-mapper-connetor-lib/dist
+        packages-dir: openg2p-spar-g2pconnect-mapper-connector-lib/dist
     - name: Publish Selfservice API
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
