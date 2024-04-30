@@ -26,7 +26,7 @@ from openg2p_g2pconnect_mapper_lib.schemas import (
     UpdateResponse,
     UpdateStatusReasonCode,
 )
-from openg2p_spar_self_service_mapper_interface_lib.response import MapperResponse
+from openg2p_spar_mapper_interface_lib.response import MapperResponse
 
 
 class MapperConnectorHelper(BaseService):

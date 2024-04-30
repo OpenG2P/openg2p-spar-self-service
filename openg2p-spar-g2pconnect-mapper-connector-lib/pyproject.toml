@@ -3,11 +3,11 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "openg2p-spar-self-service-mapper-interface-lib"
+name = "openg2p-spar-g2pconnect-mapper-connector-lib"
 authors = [
   { name="OpenG2P", email="info@openg2p.org" },
 ]
-description = "OpenG2P SPAR Self Service Mapper Interface Library"
+description = "OpenG2P SPAR Self Service G2PConnect Mapper Connector Library"
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [
@@ -16,7 +16,7 @@ classifiers = [
   "Operating System :: OS Independent",
 ]
 dependencies = [
-  "openg2p-fastapi-common",
+  "openg2p-spar-mapper-interface-lib",
 ]
 dynamic = ["version"]
 
@@ -27,4 +27,4 @@ Repository = "https://github.com/OpenG2P/openg2p-spar-self-service"
 Source = "https://github.com/OpenG2P/openg2p-spar-self-service"
 
 [tool.hatch.version]
-path = "src/openg2p_spar_self_service_mapper_interface_lib/__init__.py"
+path = "src/openg2p_spar_g2pconnect_mapper_connector_lib/__init__.py"
