@@ -33,7 +33,7 @@ class SelfServiceController(BaseController):
         self._resolve_url = _config.mapper_api_url + _config.mapper_resolve_path
         self._unlink_url = _config.mapper_api_url + _config.mapper_unlink_path
 
-        self.router.prefix += "/"
+        self.router.prefix += ""
         self.router.tags += ["selfservice"]
 
         self.router.add_api_route(
