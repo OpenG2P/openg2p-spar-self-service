@@ -10,10 +10,9 @@ INSERT INTO "public"."dfsp_levels" ("name", "level_type", "input_type", "parent"
 
 INSERT INTO "public"."strategy" ("description", "strategy_type", "deconstruct_strategy", "construct_strategy", "created_at", "updated_at", "id", "active") VALUES
 ('Key Cloak', 'ID', '^token:(?P<sub>.[^.]*)@nationalId$', 'token:{sub}@nationalId', '2024-04-22 16:58:39.30516', '2024-04-22 16:58:39.30516', 1, 't'),
-('Bank', 'FA', '^account_number:(?P<account_number>.*)\.branch_name:(?P<branch_name>.*)\.branch_code:(?P<branch_code>.*)\.bank_name:(?P<bank_name>.*)\.bank_code:(?P<bank_code>.*)\.(?P<fa_type>.*)$', 'account_number:{account_number}.branch_name:{branch_name}.branch_code:{branch_code}.bank_name:{bank_name}.bank_code:{bank_code}.{fa_type}
-', '2024-04-22 21:03:41.56273', '2024-04-22 21:03:41.56273', 2, 't'),
-('Email', 'FA', '^email:(?P<email_address>.*)\.(?P<fa_type>.[^.]*)$', 'email:{email_address}.{fa_type}', '2024-04-22 21:03:41.56273', '2024-04-22 21:03:41.56273', 3, 't'),
-('Phone', 'FA', '^account:(?P<mobile_number>.[^.]*)@(?P<wallet_provider_code>.[^.]*)\.(?P<fa_type>.[^.]*)$', 'account:{mobile_number}@{wallet_provider_code}.{fa_type}', '2024-04-22 21:03:41.56273', '2024-04-22 21:03:41.56273', 4, 't');
+('Bank', 'FA', '^account_number:(?P<account_number>.*)\.branch_name:(?P<branch_name>.*)\.branch_code:(?P<branch_code>.*)\.bank_name:(?P<bank_name>.*)\.bank_code:(?P<bank_code>.*)\.fa_type:(?P<fa_type>.*)$', 'account_number:{account_number}.branch_name:{branch_name}.branch_code:{branch_code}.bank_name:{bank_name}.bank_code:{bank_code}.fa_type:{fa_type}', '2024-04-22 21:03:41.56273', '2024-04-22 21:03:41.56273', 2, 't'),
+('Email', 'FA', '^email_address:(?P<email_address>.*)\.wallet_provider_name:(?P<wallet_provider_name>.*)\.wallet_provider_code:(?P<wallet_provider_code>.*)\.fa_type:(?P<fa_type>.*)$', 'email_address:{email_address}.wallet_provider_name:{wallet_provider_name}.wallet_provider_code:{wallet_provider_code}.fa_type:{fa_type}', '2024-04-22 21:03:41.56273', '2024-04-22 21:03:41.56273', 3, 't'),
+('Phone', 'FA', '^mobile_number:(?P<mobile_number>.*)\.wallet_provider_name:(?P<wallet_provider_name>.*)\.wallet_provider_code:(?P<wallet_provider_code>.*)\.fa_type:(?P<fa_type>.*)$', 'mobile_number:{mobile_number}.wallet_provider_name:{wallet_provider_name}.wallet_provider_code:{wallet_provider_code}.fa_type:{fa_type}', '2024-04-22 21:03:41.56273', '2024-04-22 21:03:41.56273', 4, 't');
 
 INSERT INTO "public"."dfsp_level_values" ("name", "code", "description", "parent", "level_id", "strategy_id", "created_at", "updated_at", "id", "active") VALUES
 ('HDFC Bank Ltd.', 'HDFC', 'HDFC Bank Limited', 0, 1, 2, '2024-04-21 20:31:41.549441', '2024-04-21 20:31:41.549441', 1000, 't'),
