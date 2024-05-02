@@ -40,8 +40,8 @@ INSERT INTO "public"."login_providers" ("name", "type", "description", "login_bu
   "jwks_endpoint": "http://keycloak.keycloak/realms/openg2p/protocol/openid-connect/certs",
   "client_id": "openg2p-selfservice-client",
   "redirect_uri": "http://localhost:8000/oauth2/callback",
-  "code_verifier": "_cHemmb3ZJIeSNj7ND1agM-G4HgmenFxPp3l-vnRKDU",
-  "client_secret": "xJD1tc9RSzVjL3EK"
+  "code_verifier": "",
+  "client_secret": ""
 }', '2024-04-22 11:21:17.723442', '2024-04-22 11:21:17.723442', 1, 't', 1),
 ('E Signet', 'oauth2_auth_code', 'e-signet', 'e_signet', 'https://login.url', '{
   "authorize_endpoint": "https://esignet.dev.openg2p.net/authorize",
@@ -50,17 +50,7 @@ INSERT INTO "public"."login_providers" ("name", "type", "description", "login_bu
   "jwks_endpoint": "https://esignet.dev.openg2p.net/v1/esignet/oauth/.well-known/jwks.json",
   "client_id": "openg2p-selfservice-esignet",
   "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-  "client_assertion_jwk": {
-    "p": "-kjAgGyl8itT2p1HTKWRU_AXgd4PDZIpkMt7uvfC0_Xxvn8hXrE5JHWaQv-EzlZN41CRn9UOxWQSg2u0C5-w9uXd1hgE9SV7S10qp08bCloXMxBie40jNiFgyotq5mY1hLbWfPbMl0OV7tzhzKM8Wi9rVnHDreXlrXvRqSo39q0",
-    "kty": "RSA",
-    "q": "7HA12FpKRi9b200VOpVoSUB1i-cdIwHkWKXAA1-uFeO-zFCyfXhqylSOvB5KP6z4iK7rj07vfWp0UzeHmUzZFjnWD-ElM2Gdo9e4blhMRDiHdCBWQJibBXOH0GiJpR7AMd78mi2XiiVxv-lwVnEo-1F6L-pGCQXejUe5LpzAmBE",
-    "d": "rZ7qTCZeqXJG5R3VHpw7nAf45wPoqcjB7dxP4IcXLzDSEMkJ3r0sP8OVMBXkzB2_4n4KR7G3Yxa0gdywIQbxZDRxHwUxd9zsKdYX_IiqbpJA4SXqrZFvHk0huxK4PRXpCPR7y-V9H3aI4O1uI7lC7cBQuIe8q0zbyeOzoc9WEwmlMxuN2Ra8wYw2Vm7IS4vt78bnaJmaMxivpKeWth_DrRwjaXvQm6BfrH6nWcBBmNTq8jwIq1t7BSRfRXSXxouYovxNe2t6yiLeAJmAZ6R4xEkZLgtvQqmAsyJ7tUaS7kSPsNUlP7BQhYlUvRuT1hD7A01FragM_eg_qBgzVx4GAQ",
-    "e": "AQAB",
-    "qi": "fbZ4RiFjqvecDCWJHDH1BqPJZXbR5rnZG-PMqLN549PcKqV_1JsRPjw9UbxR6lECYabN7GEmH2BzhcCzTGrAASodl9zq1ORqHV2QAKJyXN-1tWTvF7ILVM6B4fF2hPaPj4hHV-HNREkIdXW8bazYVXhS2OtOWNs0lh7Qgn6Pzh4",
-    "dp": "94jWou1R3sZNY8zjxIGHzz2I8k9eEez6IROvJsZ-MUZwthhkN5QN0OpjDFpMzgn7dJOtwydkOYN07_eolUp2KmpD0cflt1M_stTNJ7YMJ1vc0Asna8y2A4ZVhV0H-CEkU0LFtcgdpokYk6pvxAW53fRCM7fGcYoLc14fiTCRMu0",
-    "dq": "hjp19yvbOtksFuY-BRJJMDzt_szoV7V9Q25mAgRRuo-fBDNUAbNZPSCgH-A6WsgCGOblSGiRweuruoqt6rQcEmgnRMCW9AKZEiknxU1PjvNgwuaQ0P9SEtgx5HlUm29HwYhMc-MqQv1bBI6sfgakM3lgGs-vjvPMEv0C_plzJWE",
-    "n": "5yjF7zHbuAboh_35Ey_w-1Eyy5oQdsAHm04VCTspbiwGf7Q_8mPT4csacE9Tbg903ymMHcTU9ourFe6zztvbcee63opMyfIf57bIjaEXi3ybNP_afWEh0vaOQEMrOjJf79gVTdnaVLpv3_8UbzV_eYwUGZcDoq-yO35X-7A9wVkGXhls5ZWCKg3nxdu110SjCKJ5--5WLDiyYlWjyQRKUVjBwre-0-VlTt-qaMe_4gY-b3HXRCJoa-sBoDdC4CiF8IGEKCR9mVmhy98jI98iLvEvhx59EDH_UbC5CFqa2v9wN2ec41lFwzMBj9xQhYv9x4DCyUhi8zMYm3mtde4ZfQ"
-},
+  "client_assertion_jwk": {},
   "response_type": "code",
   "scope": "openid profile email",
   "redirect_uri": "http://selfservice.qa.openg2p.net/api/oauth2/callback",
