@@ -30,9 +30,9 @@ class Settings(AuthSettings, BaseSettings):
     auth_api_get_levels: ApiAuthSettings = ApiAuthSettings(enabled=True)
     auth_api_get_level_values: ApiAuthSettings = ApiAuthSettings(enabled=True)
 
-    mapper_api_url: str = ""
+    mapper_api_url: str = "http://localhost:8007/sync"
     mapper_api_timeout: int = 60
-    mapper_link_path: str = ""
-    mapper_update_path: str = ""
-    mapper_resolve_path: str = ""
-    mapper_unlink_path: str = ""
+    mapper_link_path: str = "/link"
+    mapper_update_path: str = "/update"
+    mapper_resolve_path: str = "/resolve"
+    mapper_unlink_path: str = "/unlink"

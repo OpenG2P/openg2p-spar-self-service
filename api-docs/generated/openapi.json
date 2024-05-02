@@ -92,7 +92,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JwtBearerAuth": []
+          }
+        ]
       }
     },
     "/dfsp/getLevelValues": {
@@ -173,16 +178,21 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JwtBearerAuth": []
+          }
+        ]
       }
     },
-    "//test_strategy": {
+    "/test_strategy": {
       "post": {
         "tags": [
           "selfservice"
         ],
         "summary": "Test Strategy",
-        "operationId": "test_strategy__test_strategy_post",
+        "operationId": "test_strategy_test_strategy_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -262,13 +272,13 @@
         ]
       }
     },
-    "//link": {
+    "/link": {
       "post": {
         "tags": [
           "selfservice"
         ],
         "summary": "Link",
-        "operationId": "link__link_post",
+        "operationId": "link_link_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -348,13 +358,13 @@
         ]
       }
     },
-    "//update": {
+    "/update": {
       "post": {
         "tags": [
           "selfservice"
         ],
         "summary": "Update",
-        "operationId": "update__update_post",
+        "operationId": "update_update_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -434,13 +444,13 @@
         ]
       }
     },
-    "//resolve": {
+    "/resolve": {
       "post": {
         "tags": [
           "selfservice"
         ],
         "summary": "Resolve",
-        "operationId": "resolve__resolve_post",
+        "operationId": "resolve_resolve_post",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -500,13 +510,13 @@
         ]
       }
     },
-    "//unlink": {
+    "/unlink": {
       "post": {
         "tags": [
           "selfservice"
         ],
         "summary": "Unlink",
-        "operationId": "unlink__unlink_post",
+        "operationId": "unlink_unlink_post",
         "responses": {
           "200": {
             "description": "Successful Response",

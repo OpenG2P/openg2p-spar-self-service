@@ -19,10 +19,10 @@ jobs:
           python-version: "3.10"
       - name: Install app
         run: |
-          python -m pip install git+https://github.com/openg2p/openg2p-fastapi-common@develop\#subdirectory=openg2p-fastapi-common
-          python -m pip install git+https://github.com/openg2p/openg2p-fastapi-common@develop\#subdirectory=openg2p-fastapi-auth
-          python -m pip install git+https://github.com/OpenG2P/openg2p-g2pconnect-common@develop\#subdirectory=openg2p-g2pconnect-common-lib
-          python -m pip install git+https://github.com/OpenG2P/openg2p-g2pconnect-common@develop\#subdirectory=openg2p-g2pconnect-mapper-lib
+          python -m pip install openg2p-fastapi-common==1.0.0
+          python -m pip install openg2p-fastapi-auth==1.0.0
+          python -m pip install openg2p-g2pconnect-common-lib==1.0.0
+          python -m pip install openg2p-g2pconnect-mapper-lib==1.0.0
           python -m pip install ./openg2p-spar-mapper-interface-lib
           python -m pip install ./openg2p-spar-g2pconnect-mapper-connector-lib
           python -m pip install ./openg2p-spar-self-service-api
