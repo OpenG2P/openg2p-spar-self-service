@@ -26,12 +26,6 @@ INSERT INTO "public"."dfsp_level_values" ("name", "code", "description", "parent
 ('PayPal Inc', 'PAYPAL', 'Paypal email wallet', 0, 6, 3, '2024-04-30 06:31:00.90639', '2024-04-30 06:31:00.90639', 5000, 't'),
 ('Google Wallet', 'GOOGL', 'Google Email Wallet', 0, 6, 3, '2024-04-30 06:32:07.130297', '2024-04-30 06:32:07.130297', 6000, 't');
 
-INSERT INTO "public"."id_fa_mappings" ("id_value", "fa_value", "name", "phone", "additional_info", "created_at", "updated_at", "id", "active") VALUES
-('token:b7733f15-c3e5-45c8-97d9-db5003a9b741@nationalId', 'account_number:1234567891.branch_name:Mumbai.branch_code:MUM1235.bank_name:HDFC Bank.bank_code:Canara.bank
-', NULL, NULL, '[{"strategy_id": 2}]', '2024-04-29 08:24:59.090508', '2024-04-29 08:24:59.090516', 9, 't'),
-('token:bcb67ba7-ee2f-44e2-87cf-9772e0169355@nationalId', 'account_number:3333333333333.branch_name:HDFC Lajpat Nagar Central Market.branch_code:HDFC0004479.bank_name:HDFC Bank Ltd..bank_code:HDFC.bank
-', 'string', 'string', '[{"strategy_id": 2}]', '2024-05-02 04:56:53.866003', '2024-05-02 04:56:53.866005', 29, 't');
-
 INSERT INTO "public"."login_providers" ("name", "type", "description", "login_button_text", "login_button_image_url", "authorization_parameters", "created_at", "updated_at", "id", "active", "strategy_id") VALUES
 ('E Signet', 'oauth2_auth_code', 'e-signet', 'e_signet', 'https://login.url', '{
   "authorize_endpoint": "https://esignet.openg2p.sandbox.net/authorize",
