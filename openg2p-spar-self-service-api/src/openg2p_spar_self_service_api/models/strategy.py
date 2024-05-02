@@ -1,10 +1,13 @@
 from enum import Enum
+from typing import Optional
 
 from openg2p_fastapi_common.context import dbengine
 from openg2p_fastapi_common.models import BaseORMModelWithTimes
-from sqlalchemy import Column, String, select
+from sqlalchemy import String, select
 from sqlalchemy.ext.asyncio import async_sessionmaker
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from .dfsp import DfspLevelValue
 
 
 class StrategyType(Enum):
@@ -15,16 +18,18 @@ class StrategyType(Enum):
 class Strategy(BaseORMModelWithTimes):
     __tablename__ = "strategy"
 
-    description = Column(String)
-    strategy_type = Column(
+    description: Mapped[str] = mapped_column(String)
+    strategy_type: Mapped[str] = mapped_column(
         String,
         nullable=False,
         default=StrategyType,
     )
-    deconstruct_strategy = Column(String)
-    construct_strategy = Column(String)
+    deconstruct_strategy: Mapped[str] = mapped_column(String)
+    construct_strategy: Mapped[str] = mapped_column(String)
 
-    level_values = relationship("DfspLevelValue", back_populates="strategy")
+    level_values: Mapped[Optional[DfspLevelValue]] = relationship(
+        "DfspLevelValue", back_populates="strategy"
+    )
 
     @classmethod
     async def get_strategy(cls, **kwargs):
