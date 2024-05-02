@@ -16,16 +16,26 @@ from ..schemas import (
 class StrategyHelper(BaseService):
     async def _construct(self, values: List[KeyValuePair], strategy_id: int) -> str:
         strategy: Strategy = await Strategy().get_strategy(id=strategy_id)
-        return strategy.construct_strategy.format(
-            **{key_value.key: key_value.value for key_value in values}
-        )
+        try:
+            constructed_str = strategy.construct_strategy.format(
+                **{key_value.key: key_value.value for key_value in values}
+            )
+            return constructed_str
+        except Exception as e:
+            raise ValueError("Error while constructing ID/FA.") from e
 
     def _deconstruct(self, value: str, strategy: str) -> List[KeyValuePair]:
         regex_res = re.match(strategy, value)
+        deconstructed_list = []
         if regex_res:
             regex_res = regex_res.groupdict()
-            return [KeyValuePair(key=k, value=v) for k, v in regex_res.items()]
-        return []
+            try:
+                deconstructed_list = [
+                    KeyValuePair(key=k, value=v) for k, v in regex_res.items()
+                ]
+            except Exception as e:
+                raise ValueError("Error while deconstructing ID/FA") from e
+        return deconstructed_list
 
     async def construct_id(
         self,
