@@ -92,7 +92,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JwtBearerAuth": []
+          }
+        ]
       }
     },
     "/dfsp/getLevelValues": {
@@ -173,7 +178,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JwtBearerAuth": []
+          }
+        ]
       }
     },
     "/test_strategy": {
