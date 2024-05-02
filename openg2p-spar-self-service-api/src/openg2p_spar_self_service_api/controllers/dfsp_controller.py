@@ -1,5 +1,8 @@
-from typing import List
+from typing import Annotated, List
 
+from fastapi import Depends
+from openg2p_fastapi_auth.dependencies import JwtBearerAuth
+from openg2p_fastapi_auth.models.credentials import AuthCredentials
 from openg2p_fastapi_common.controller import BaseController
 
 from ..models import DfspLevel, DfspLevelValue
@@ -35,6 +38,7 @@ class DfspController(BaseController):
 
     async def get_dfsp_level(
         self,
+        auth: Annotated[AuthCredentials, Depends(JwtBearerAuth())],
         dfsp_level_request: DfspLevelRequest,
     ) -> DfspLevelResponse:
         results = await DfspLevel.get_level(
@@ -50,12 +54,9 @@ class DfspController(BaseController):
 
     async def get_dfsp_level_values(
         self,
+        auth: Annotated[AuthCredentials, Depends(JwtBearerAuth())],
         dfsp_level_value_request: DfspLevelValueRequest,
     ):
-        print(
-            dfsp_level_value_request.request_payload.parent,
-            dfsp_level_value_request.request_payload.level_id,
-        )
         results = await DfspLevelValue.get_level_values(
             parent=dfsp_level_value_request.request_payload.parent,
             level_id=dfsp_level_value_request.request_payload.level_id,
