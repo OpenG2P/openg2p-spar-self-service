@@ -7,8 +7,6 @@ from sqlalchemy import String, select
 from sqlalchemy.ext.asyncio import async_sessionmaker
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .dfsp import DfspLevelValue
-
 
 class StrategyType(Enum):
     ID = "ID"
@@ -27,9 +25,7 @@ class Strategy(BaseORMModelWithTimes):
     deconstruct_strategy: Mapped[str] = mapped_column(String)
     construct_strategy: Mapped[str] = mapped_column(String)
 
-    level_values: Mapped[Optional[DfspLevelValue]] = relationship(
-        "DfspLevelValue", back_populates="strategy"
-    )
+    level_values = relationship("DfspLevelValue", back_populates="strategy")
 
     @classmethod
     async def get_strategy(cls, **kwargs):
