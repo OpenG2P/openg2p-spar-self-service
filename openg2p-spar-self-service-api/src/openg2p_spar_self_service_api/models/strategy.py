@@ -1,5 +1,4 @@
 from enum import Enum
-from typing import Optional
 
 from openg2p_fastapi_common.context import dbengine
 from openg2p_fastapi_common.models import BaseORMModelWithTimes
