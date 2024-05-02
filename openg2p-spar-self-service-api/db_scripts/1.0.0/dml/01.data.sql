@@ -71,5 +71,3 @@ INSERT INTO "public"."login_providers" ("name", "type", "description", "login_bu
     "claims": "{\"userinfo\":{\"name\":{\"essential\":true},\"phone_number\":{\"essential\":false},\"email\":{\"essential\":false},\"gender\":{\"essential\":true},\"birthdate\":{\"essential\":true},\"address\":{\"essential\":false},\"picture\":{\"essential\":false}},\"id_token\":{}}"
   }
 }', '2024-04-22 12:14:52.174414', '2024-04-22 12:14:52.174414', 2, 't', NULL);
-
-
