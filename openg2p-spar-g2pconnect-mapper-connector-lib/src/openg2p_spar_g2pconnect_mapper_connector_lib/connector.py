@@ -38,10 +38,12 @@ class MapperConnector(MapperInterface):
                 id, fa, name, phone_number, additional_info
             )
         )
+        jwt_token = await mapper_connector_helper.create_jwt_token(link_request.dict())
+        headers = {"content-type": "application/json", "Authorization": jwt_token}
         link_response: (
             LinkResponse
         ) = await MapperLinkClient.get_component().link_request(
-            link_url=link_url, link_request=link_request
+            link_url=link_url, link_request=link_request, headers=headers
         )
         mapper_response = await mapper_connector_helper.construct_mapper_response_link(
             link_response
@@ -53,10 +55,14 @@ class MapperConnector(MapperInterface):
         unlink_request: UnlinkRequest = (
             await mapper_connector_helper.construct_unlink_request(id=id)
         )
+        jwt_token = await mapper_connector_helper.create_jwt_token(
+            unlink_request.dict()
+        )
+        headers = {"content-type": "application/json", "Authorization": jwt_token}
         unlink_response: (
             UnlinkResponse
         ) = await MapperUnlinkClient.get_component().unlink_request(
-            unlink_request=unlink_request, unlink_url=unlink_url
+            unlink_request=unlink_request, unlink_url=unlink_url, headers=headers
         )
         mapper_response = (
             await mapper_connector_helper.construct_mapper_response_unlink(
@@ -70,10 +76,14 @@ class MapperConnector(MapperInterface):
         resolve_request: ResolveRequest = (
             await mapper_connector_helper.construct_resolve_request(id)
         )
+        jwt_token = await mapper_connector_helper.create_jwt_token(
+            resolve_request.dict()
+        )
+        headers = {"content-type": "application/json", "Authorization": jwt_token}
         resolve_response: (
             ResolveResponse
         ) = await MapperResolveClient.get_component().resolve_request(
-            resolve_request=resolve_request, resolve_url=resolve_url
+            resolve_request=resolve_request, resolve_url=resolve_url, headers=headers
         )
         mapper_response = (
             await mapper_connector_helper.construct_mapper_response_resolve(
@@ -97,10 +107,14 @@ class MapperConnector(MapperInterface):
                 id, fa, name, phone_number, additional_info
             )
         )
+        jwt_token = await mapper_connector_helper.create_jwt_token(
+            update_request.dict()
+        )
+        headers = {"content-type": "application/json", "Authorization": jwt_token}
         update_response: (
             UpdateResponse
         ) = await MapperUpdateClient.get_component().update_request(
-            update_request=update_request, update_url=update_url
+            update_request=update_request, update_url=update_url, headers=headers
         )
         mapper_response = (
             await mapper_connector_helper.construct_mapper_response_update(
