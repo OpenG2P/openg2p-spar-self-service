@@ -1,7 +1,8 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional
 
+import jwt
 from openg2p_fastapi_common.service import BaseService
 from openg2p_g2pconnect_common_lib.schemas import RequestHeader
 from openg2p_g2pconnect_mapper_lib.schemas import (
@@ -28,6 +29,10 @@ from openg2p_g2pconnect_mapper_lib.schemas import (
 )
 from openg2p_spar_mapper_interface_lib.response import MapperResponse
 
+from .config import Settings
+
+_config = Settings.get_config()
+
 
 class MapperConnectorHelper(BaseService):
     async def construct_link_request(
@@ -43,7 +48,7 @@ class MapperConnectorHelper(BaseService):
             link_request=[
                 SingleLinkRequest(
                     reference_id=str(uuid.uuid4()),
-                    timestamp=datetime.now(),
+                    timestamp=str(datetime.now()),
                     id=id,
                     fa=fa,
                     name=name,
@@ -59,7 +64,7 @@ class MapperConnectorHelper(BaseService):
                 message_id=str(uuid.uuid4()),
                 message_ts=str(datetime.now()),
                 action="link",
-                sender_id="",
+                sender_id=_config.sender_id,
                 sender_uri="",
                 total_count=1,
             ),
@@ -258,3 +263,18 @@ class MapperConnectorHelper(BaseService):
             ].status_reason_message,
         )
         return mapper_response
+
+    async def create_jwt_token(self, payload, expiration_minutes=60):
+        private_key = _config.private_key
+        headers = {"alg": "RS256", "typ": "JWT"}
+        issuer = _config.issuer
+        audience = _config.audience
+        payload.update(
+            {
+                "iss": issuer,
+                "aud": audience,
+                "exp": datetime.utcnow() + timedelta(minutes=expiration_minutes),
+            }
+        )
+        token = jwt.encode(payload, private_key, algorithm="RS256", headers=headers)
+        return token
