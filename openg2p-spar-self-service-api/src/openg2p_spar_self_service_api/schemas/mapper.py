@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel
 
-from .dfsp import LevelTypeEnum
+from .dfsp import LevelTypeEnum, FaTypeEnum
 from .request import SparRequest
 from .response import SparResponse
 
@@ -21,7 +21,7 @@ class KeyValuePair(BaseModel):
 
 class Fa(BaseModel):
     strategy_id: int
-    fa_type: LevelTypeEnum
+    fa_type: FaTypeEnum
 
 
 class BankAccountFa(Fa):
