@@ -7,6 +7,12 @@ from .request import SparRequest
 from .response import SparResponse
 
 
+class FaTypeEnum(Enum):
+    BANK_ACCOUNT = "BANK_ACCOUNT"
+    MOBILE_WALLET = "MOBILE_WALLET"
+    EMAIL_WALLET = "EMAIL_WALLET"
+
+
 class LevelTypeEnum(Enum):
     BANK = "bank"
     BRANCH = "branch"
