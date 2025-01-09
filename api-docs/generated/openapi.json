@@ -1008,7 +1008,7 @@
             "title": "Strategy Id"
           },
           "fa_type": {
-            "$ref": "#/components/schemas/LevelTypeEnum"
+            "$ref": "#/components/schemas/FaTypeEnum"
           },
           "bank_name": {
             "type": "string",
@@ -1560,7 +1560,7 @@
             "title": "Strategy Id"
           },
           "fa_type": {
-            "$ref": "#/components/schemas/LevelTypeEnum"
+            "$ref": "#/components/schemas/FaTypeEnum"
           },
           "wallet_provider_name": {
             "type": "string",
@@ -1616,6 +1616,15 @@
         },
         "type": "object",
         "title": "ErrorResponse"
+      },
+      "FaTypeEnum": {
+        "type": "string",
+        "enum": [
+          "BANK_ACCOUNT",
+          "MOBILE_WALLET",
+          "EMAIL_WALLET"
+        ],
+        "title": "FaTypeEnum"
       },
       "HTTPValidationError": {
         "properties": {
@@ -1713,7 +1722,7 @@
             "title": "Strategy Id"
           },
           "fa_type": {
-            "$ref": "#/components/schemas/LevelTypeEnum"
+            "$ref": "#/components/schemas/FaTypeEnum"
           },
           "wallet_provider_name": {
             "type": "string",
