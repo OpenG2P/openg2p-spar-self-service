@@ -1341,11 +1341,7 @@
             "$ref": "#/components/schemas/LevelTypeEnum"
           },
           "input_type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/InputTypeEnum"
-              }
-            ]
+            "$ref": "#/components/schemas/InputTypeEnum"
           },
           "parent": {
             "anyOf": [
@@ -1708,7 +1704,6 @@
         "enum": [
           "oauth2_auth_code"
         ],
-        "const": "oauth2_auth_code",
         "title": "LoginProviderTypes"
       },
       "MobileWalletFa": {
