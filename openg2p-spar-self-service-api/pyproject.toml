@@ -19,6 +19,8 @@ dependencies = [
   "openg2p-fastapi-common",
   "openg2p-fastapi-auth",
   "openg2p-spar-mapper-interface-lib",
+  "asyncpg",
+  "psycopg2",
 ]
 dynamic = ["version"]
 
