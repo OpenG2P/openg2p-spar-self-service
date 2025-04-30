@@ -59,7 +59,6 @@ class MapperConnectorHelper(BaseService):
         )
 
         link_request = LinkRequest(
-            signature="",
             header=RequestHeader(
                 message_id=str(uuid.uuid4()),
                 message_ts=str(datetime.now()),
@@ -86,7 +85,6 @@ class MapperConnectorHelper(BaseService):
         )
 
         unlink_request = UnlinkRequest(
-            signature="",
             header=RequestHeader(
                 message_id=str(uuid.uuid4()),
                 message_ts=str(datetime.now()),
@@ -114,7 +112,6 @@ class MapperConnectorHelper(BaseService):
         )
 
         resolve_request = ResolveRequest(
-            signature="",
             header=RequestHeader(
                 message_id=str(uuid.uuid4()),
                 message_ts=str(datetime.now()),
@@ -152,7 +149,6 @@ class MapperConnectorHelper(BaseService):
         )
 
         update_request = UpdateRequest(
-            signature="",
             header=RequestHeader(
                 message_id=str(uuid.uuid4()),
                 message_ts=str(datetime.now()),

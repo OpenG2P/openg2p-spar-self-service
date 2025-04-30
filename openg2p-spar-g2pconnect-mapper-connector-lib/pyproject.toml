@@ -16,7 +16,8 @@ classifiers = [
   "Operating System :: OS Independent",
 ]
 dependencies = [
-  "openg2p-spar-mapper-interface-lib",
+    "openg2p-spar-mapper-interface-lib",
+    "pyjwt",
 ]
 dynamic = ["version"]
 
