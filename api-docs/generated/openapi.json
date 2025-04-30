@@ -11,7 +11,7 @@
       "name": "Mozilla Public License 2.0",
       "url": "https://www.mozilla.org/en-US/MPL/2.0/"
     },
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "paths": {
     "/dfsp/getLevels": {
@@ -1148,6 +1148,7 @@
           "address": {
             "anyOf": [
               {
+                "additionalProperties": true,
                 "type": "object"
               },
               {
@@ -1341,11 +1342,7 @@
             "$ref": "#/components/schemas/LevelTypeEnum"
           },
           "input_type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/InputTypeEnum"
-              }
-            ]
+            "$ref": "#/components/schemas/InputTypeEnum"
           },
           "parent": {
             "anyOf": [
@@ -1708,7 +1705,6 @@
         "enum": [
           "oauth2_auth_code"
         ],
-        "const": "oauth2_auth_code",
         "title": "LoginProviderTypes"
       },
       "MobileWalletFa": {
@@ -1894,6 +1890,7 @@
             "anyOf": [
               {
                 "items": {
+                  "additionalProperties": true,
                   "type": "object"
                 },
                 "type": "array"
@@ -2039,6 +2036,7 @@
           "fa": {
             "anyOf": [
               {
+                "additionalProperties": true,
                 "type": "object"
               },
               {
@@ -2073,6 +2071,7 @@
             "anyOf": [
               {
                 "items": {
+                  "additionalProperties": true,
                   "type": "object"
                 },
                 "type": "array"
@@ -2213,6 +2212,7 @@
             "anyOf": [
               {
                 "items": {
+                  "additionalProperties": true,
                   "type": "object"
                 },
                 "type": "array"
