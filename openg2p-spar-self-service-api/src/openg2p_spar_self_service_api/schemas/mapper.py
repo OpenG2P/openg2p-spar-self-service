@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel
 
-from .dfsp import LevelTypeEnum, FaTypeEnum
+from .dfsp import FaTypeEnum
 from .request import SparRequest
 from .response import SparResponse
 
