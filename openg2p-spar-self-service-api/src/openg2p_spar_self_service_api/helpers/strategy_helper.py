@@ -64,9 +64,9 @@ class StrategyHelper(BaseService):
     async def construct_fa(self, fa: Fa) -> str:
         fa_dict = fa.dict()
 
-        # Appending fa with email address and mobile number
-        fa_dict["email_address"] = ""
-        fa_dict["mobile_number"] = ""
+        # Appending fa with default email address and mobile number in case they are missing
+        fa_dict.setdefault("email_address", "")
+        fa_dict.setdefault("mobile_number", "")
 
         constructed_fa = await self._construct(
             [
