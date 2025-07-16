@@ -13,14 +13,13 @@ class MapperInterface(BaseService):
         name: Optional[str],
         phone_number: Optional[str],
         additional_info: Optional[List[Dict[str, Any]]],
-        link_url: str,
     ) -> MapperResponse:
         raise NotImplementedError()
 
-    async def unlink(self, id: str, unlink_url: str) -> MapperResponse:
+    async def unlink(self, id: str) -> MapperResponse:
         raise NotImplementedError()
 
-    async def resolve(self, id: str, resolve_url: str) -> MapperResponse:
+    async def resolve(self, id: str) -> MapperResponse:
         raise NotImplementedError()
 
     async def update(
@@ -30,6 +29,5 @@ class MapperInterface(BaseService):
         name: Optional[str],
         phone_number: Optional[str],
         additional_info: Optional[List[Dict[str, Any]]],
-        update_url: str,
     ) -> MapperResponse:
         raise NotImplementedError()

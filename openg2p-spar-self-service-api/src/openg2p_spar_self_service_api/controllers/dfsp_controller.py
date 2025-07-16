@@ -41,16 +41,12 @@ class DfspController(BaseController):
         auth: Annotated[AuthCredentials, Depends(JwtBearerAuth())],
         dfsp_level_request: DfspLevelRequest,
     ) -> DfspLevelResponse:
-        results = await DfspLevel.get_level(
-            parent=dfsp_level_request.request_payload.parent
-        )
+        results = await DfspLevel.get_level(parent=dfsp_level_request.request_payload.parent)
 
         dfsp_level_schemas: List[DfspLevelSchema] = [
             DfspLevelSchema.model_validate(result.__dict__) for result in results
         ]
-        return DfspLevelResponse(
-            response_status=ResponseStatus.SUCCESS, response_payload=dfsp_level_schemas
-        )
+        return DfspLevelResponse(response_status=ResponseStatus.SUCCESS, response_payload=dfsp_level_schemas)
 
     async def get_dfsp_level_values(
         self,

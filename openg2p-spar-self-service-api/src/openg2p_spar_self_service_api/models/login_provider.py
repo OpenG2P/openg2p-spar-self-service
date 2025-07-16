@@ -10,7 +10,5 @@ from .strategy import Strategy
 
 
 class LoginProvider(OriginalLoginProvider):
-    strategy_id: Mapped[Optional[int]] = mapped_column(
-        Integer, ForeignKey("strategy.id"), nullable=True
-    )
+    strategy_id: Mapped[Optional[int]] = mapped_column(Integer, ForeignKey("strategy.id"), nullable=True)
     strategy: Mapped[Optional[Strategy]] = relationship("Strategy")

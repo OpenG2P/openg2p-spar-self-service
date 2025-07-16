@@ -8,9 +8,12 @@ from openg2p_spar_g2pconnect_mapper_connector_lib.app import (
 from openg2p_fastapi_auth.app import Initializer as AuthInitializer
 from openg2p_fastapi_common.ping import PingInitializer
 
-MapperConnectorInitializer()
 main_init = SparInitializer()
+MapperConnectorInitializer()
 AuthInitializer()
 PingInitializer()
 
-main_init.main()
+app = main_init.return_app()
+
+if __name__ == "__main__":
+    main_init.main()
