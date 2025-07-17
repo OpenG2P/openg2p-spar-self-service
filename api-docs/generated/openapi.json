@@ -37,7 +37,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DfspLevelResponse-Input"
+                  "$ref": "#/components/schemas/DfspLevelResponse"
                 }
               }
             }
@@ -1202,70 +1202,7 @@
         ],
         "title": "DfspLevelRequestPayload"
       },
-      "DfspLevelResponse-Input": {
-        "properties": {
-          "response_header": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/ResponseHeader"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "response_status": {
-            "$ref": "#/components/schemas/ResponseStatus"
-          },
-          "response_error_code": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Response Error Code"
-          },
-          "response_message": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Response Message"
-          },
-          "response_pagination": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/ResponsePagination"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "default": {}
-          },
-          "response_payload": {
-            "items": {
-              "$ref": "#/components/schemas/DfspLevelSchema"
-            },
-            "type": "array",
-            "title": "Response Payload"
-          }
-        },
-        "type": "object",
-        "required": [
-          "response_status",
-          "response_payload"
-        ],
-        "title": "DfspLevelResponse"
-      },
-      "DfspLevelResponse-Output": {
+      "DfspLevelResponse": {
         "properties": {
           "response_header": {
             "anyOf": [
@@ -1682,7 +1619,15 @@
             "$ref": "#/components/schemas/LoginProviderTypes"
           },
           "displayName": {
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "additionalProperties": true,
+                "type": "object"
+              }
+            ],
             "title": "Displayname"
           },
           "displayIconUrl": {
