@@ -1,8 +1,7 @@
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-import jwt
 from openg2p_fastapi_common.service import BaseService
 from openg2p_g2pconnect_common_lib.schemas import RequestHeader
 from openg2p_g2pconnect_mapper_lib.schemas import (
@@ -162,9 +161,7 @@ class MapperConnectorHelper(BaseService):
 
         return update_request
 
-    async def construct_mapper_response_link(
-        self, response: LinkResponse
-    ) -> MapperResponse:
+    async def construct_mapper_response_link(self, response: LinkResponse) -> MapperResponse:
         mapper_response = MapperResponse(
             id="",
             fa=response.message.link_response[0].fa,
@@ -174,21 +171,15 @@ class MapperConnectorHelper(BaseService):
             additional_info=response.message.link_response[0].additional_info,
             status=response.message.link_response[0].status,
             mapper_error_code=(
-                LinkStatusReasonCode(
-                    response.message.link_response[0].status_reason_code
-                )
+                LinkStatusReasonCode(response.message.link_response[0].status_reason_code)
                 if response.message.link_response[0].status_reason_code
                 else None
             ),
-            mapper_error_message=response.message.link_response[
-                0
-            ].status_reason_message,
+            mapper_error_message=response.message.link_response[0].status_reason_message,
         )
         return mapper_response
 
-    async def construct_mapper_response_unlink(
-        self, response: UnlinkResponse
-    ) -> MapperResponse:
+    async def construct_mapper_response_unlink(self, response: UnlinkResponse) -> MapperResponse:
         mapper_response = MapperResponse(
             id=response.message.unlink_response[0].id,
             fa="",
@@ -198,47 +189,33 @@ class MapperConnectorHelper(BaseService):
             additional_info=[],
             status=response.message.unlink_response[0].status,
             mapper_error_code=(
-                UnlinkStatusReasonCode(
-                    response.message.unlink_response[0].status_reason_code
-                )
+                UnlinkStatusReasonCode(response.message.unlink_response[0].status_reason_code)
                 if response.message.unlink_response[0].status_reason_code
                 else None
             ),
-            mapper_error_message=response.message.unlink_response[
-                0
-            ].status_reason_message,
+            mapper_error_message=response.message.unlink_response[0].status_reason_message,
         )
         return mapper_response
 
-    async def construct_mapper_response_resolve(
-        self, response: ResolveResponse
-    ) -> MapperResponse:
+    async def construct_mapper_response_resolve(self, response: ResolveResponse) -> MapperResponse:
         mapper_response = MapperResponse(
             id=response.message.resolve_response[0].id,
             fa=response.message.resolve_response[0].fa,
             name="",
             phone_number="",
-            account_provider_info=response.message.resolve_response[
-                0
-            ].account_provider_info,
+            account_provider_info=response.message.resolve_response[0].account_provider_info,
             additional_info=response.message.resolve_response[0].additional_info,
             status=response.message.resolve_response[0].status,
             mapper_error_code=(
-                ResolveStatusReasonCode(
-                    response.message.resolve_response[0].status_reason_code
-                )
+                ResolveStatusReasonCode(response.message.resolve_response[0].status_reason_code)
                 if response.message.resolve_response[0].status_reason_code
                 else None
             ),
-            mapper_error_message=response.message.resolve_response[
-                0
-            ].status_reason_message,
+            mapper_error_message=response.message.resolve_response[0].status_reason_message,
         )
         return mapper_response
 
-    async def construct_mapper_response_update(
-        self, response: UpdateResponse
-    ) -> MapperResponse:
+    async def construct_mapper_response_update(self, response: UpdateResponse) -> MapperResponse:
         mapper_response = MapperResponse(
             id=response.message.update_response[0].id,
             fa="",
@@ -248,29 +225,10 @@ class MapperConnectorHelper(BaseService):
             additional_info=response.message.update_response[0].additional_info,
             status=response.message.update_response[0].status,
             mapper_error_code=(
-                UpdateStatusReasonCode(
-                    response.message.update_response[0].status_reason_code
-                )
+                UpdateStatusReasonCode(response.message.update_response[0].status_reason_code)
                 if response.message.update_response[0].status_reason_code
                 else None
             ),
-            mapper_error_message=response.message.update_response[
-                0
-            ].status_reason_message,
+            mapper_error_message=response.message.update_response[0].status_reason_message,
         )
         return mapper_response
-
-    async def create_jwt_token(self, payload, expiration_minutes=60):
-        private_key = _config.private_key
-        headers = {"alg": "RS256", "typ": "JWT"}
-        issuer = _config.issuer
-        audience = _config.audience
-        payload.update(
-            {
-                "iss": issuer,
-                "aud": audience,
-                "exp": datetime.utcnow() + timedelta(minutes=expiration_minutes),
-            }
-        )
-        token = jwt.encode(payload, private_key, algorithm="RS256", headers=headers)
-        return token

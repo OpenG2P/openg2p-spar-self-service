@@ -111,15 +111,8 @@ async def test_link(setup):
                     id, fa, name, phone_number, additional_info
                 )
             )
-            mock_helper.return_value.create_jwt_token = AsyncMock(
-                return_value="mock_jwt_token"
-            )
-            mock_helper.return_value.construct_mapper_response_link.return_value = (
-                expected_mapper_response
-            )
-            mock_service.return_value.link_request.return_value = (
-                expected_mapper_response
-            )
+            mock_helper.return_value.construct_mapper_response_link.return_value = expected_mapper_response
+            mock_service.return_value.link_request.return_value = expected_mapper_response
             mapper_connector = MapperConnector()
             result = await mapper_connector.link(
                 id=test_id,
@@ -127,22 +120,12 @@ async def test_link(setup):
                 name=test_name,
                 phone_number=test_phone_number,
                 additional_info=test_additional_info,
-                link_url="",
             )
 
             assert result == expected_mapper_response
 
             mock_helper.return_value.construct_link_request.assert_called_once_with(
                 test_id, test_fa, test_name, test_phone_number, test_additional_info
-            )
-            mock_helper.return_value.create_jwt_token.assert_called_once_with(
-                {
-                    "id": test_id,
-                    "fa": test_fa,
-                    "name": test_name,
-                    "phone_number": test_phone_number,
-                    "additional_info": test_additional_info,
-                }
             )
             mock_helper.return_value.construct_mapper_response_link.assert_called_once_with(
                 expected_mapper_response
@@ -160,17 +143,11 @@ async def test_unlink(setup):
             "openg2p_spar_g2pconnect_mapper_connector_lib.connector.MapperUnlinkClient.get_component",
             return_value=AsyncMock(),
         ) as mock_service:
-            mock_helper.return_value.construct_unlink_request.side_effect = (
-                lambda id: MockUnlinkRequest(id)
-            )
-            mock_helper.return_value.construct_mapper_response_unlink.return_value = (
-                expected_mapper_response
-            )
-            mock_service.return_value.unlink_request.return_value = (
-                expected_mapper_response
-            )
+            mock_helper.return_value.construct_unlink_request.side_effect = lambda id: MockUnlinkRequest(id)
+            mock_helper.return_value.construct_mapper_response_unlink.return_value = expected_mapper_response
+            mock_service.return_value.unlink_request.return_value = expected_mapper_response
             mapper_connector = MapperConnector()
-            result = await mapper_connector.unlink(id=test_id, unlink_url="")
+            result = await mapper_connector.unlink(id=test_id)
 
             assert result == expected_mapper_response
 
@@ -190,23 +167,15 @@ async def test_resolve(setup):
             "openg2p_spar_g2pconnect_mapper_connector_lib.connector.MapperResolveClient.get_component",
             return_value=AsyncMock(),
         ) as mock_service:
-            mock_helper.return_value.construct_resolve_request.side_effect = (
-                lambda id: MockResolveRequest(id)
-            )
-            mock_helper.return_value.construct_mapper_response_resolve.return_value = (
-                expected_mapper_response
-            )
-            mock_service.return_value.resolve_request.return_value = (
-                expected_mapper_response
-            )
+            mock_helper.return_value.construct_resolve_request.side_effect = lambda id: MockResolveRequest(id)
+            mock_helper.return_value.construct_mapper_response_resolve.return_value = expected_mapper_response
+            mock_service.return_value.resolve_request.return_value = expected_mapper_response
             mapper_connector = MapperConnector()
-            result = await mapper_connector.resolve(id=test_id, resolve_url="")
+            result = await mapper_connector.resolve(test_id)
 
             assert result == expected_mapper_response
 
-            mock_helper.return_value.construct_resolve_request.assert_called_once_with(
-                test_id
-            )
+            mock_helper.return_value.construct_resolve_request.assert_called_once_with(test_id)
             mock_helper.return_value.construct_mapper_response_resolve.assert_called_once_with(
                 expected_mapper_response
             )
@@ -235,12 +204,8 @@ async def test_update(setup):
                     id, fa, name, phone_number, additional_info
                 )
             )
-            mock_helper.return_value.construct_mapper_response_update.return_value = (
-                expected_mapper_response
-            )
-            mock_service.return_value.update_request.return_value = (
-                expected_mapper_response
-            )
+            mock_helper.return_value.construct_mapper_response_update.return_value = expected_mapper_response
+            mock_service.return_value.update_request.return_value = expected_mapper_response
             mapper_connector = MapperConnector()
             result = await mapper_connector.update(
                 id=test_id,
@@ -248,7 +213,6 @@ async def test_update(setup):
                 name=test_name,
                 phone_number=test_phone_number,
                 additional_info=test_additional_info,
-                update_url="",
             )
 
             assert result == expected_mapper_response

@@ -30,9 +30,7 @@ class StrategyHelper(BaseService):
         if regex_res:
             regex_res = regex_res.groupdict()
             try:
-                deconstructed_list = [
-                    KeyValuePair(key=k, value=v) for k, v in regex_res.items()
-                ]
+                deconstructed_list = [KeyValuePair(key=k, value=v) for k, v in regex_res.items()]
             except Exception as e:
                 raise ValueError("Error while deconstructing ID/FA") from e
         return deconstructed_list
@@ -41,18 +39,12 @@ class StrategyHelper(BaseService):
         self,
         auth: AuthCredentials,
     ) -> str:
-        login_provider: LoginProvider = await LoginProvider.get_login_provider_from_iss(
-            auth.iss
-        )
+        login_provider: LoginProvider = await LoginProvider.get_login_provider_from_iss(auth.iss)
         constructed_id = await self._construct(
             [
                 KeyValuePair(
                     key=key,
-                    value=(
-                        value
-                        if isinstance(value, str)
-                        else orjson.dumps(value).decode()
-                    ),
+                    value=(value if isinstance(value, str) else orjson.dumps(value).decode()),
                 )
                 for key, value in auth.model_dump().items()
             ],
@@ -66,11 +58,7 @@ class StrategyHelper(BaseService):
             [
                 KeyValuePair(
                     key=key,
-                    value=(
-                        value
-                        if isinstance(value, str)
-                        else orjson.dumps(value).decode().strip('"')
-                    ),
+                    value=(value if isinstance(value, str) else orjson.dumps(value).decode().strip('"')),
                 )
                 for key, value in fa.dict().items()
             ],
@@ -85,12 +73,8 @@ class StrategyHelper(BaseService):
                 id=strategy_id,
             )
             if strategy:
-                deconstructed_pairs = self._deconstruct(
-                    fa, strategy.deconstruct_strategy
-                )
-                deconstructed_fa = {
-                    pair.key: pair.value for pair in deconstructed_pairs
-                }
+                deconstructed_pairs = self._deconstruct(fa, strategy.deconstruct_strategy)
+                deconstructed_fa = {pair.key: pair.value for pair in deconstructed_pairs}
                 deconstructed_fa["strategy_id"] = strategy_id
                 return deconstructed_fa
         return {}
@@ -101,12 +85,8 @@ class StrategyHelper(BaseService):
                 id=strategy_id,
             )
             if strategy:
-                deconstructed_pairs = self._deconstruct(
-                    fa, strategy.deconstruct_strategy
-                )
-                deconstructed_fa = {
-                    pair.key: pair.value for pair in deconstructed_pairs
-                }
+                deconstructed_pairs = self._deconstruct(fa, strategy.deconstruct_strategy)
+                deconstructed_fa = {pair.key: pair.value for pair in deconstructed_pairs}
 
                 return deconstructed_fa
         return {}

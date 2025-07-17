@@ -48,9 +48,7 @@ class DfspLevelValue(BaseORMModelWithTimes):
     description: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     parent: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
     level_id: Mapped[int] = mapped_column(Integer, nullable=True)
-    strategy_id: Mapped[Optional[int]] = mapped_column(
-        Integer, ForeignKey("strategy.id"), nullable=True
-    )
+    strategy_id: Mapped[Optional[int]] = mapped_column(Integer, ForeignKey("strategy.id"), nullable=True)
 
     strategy: Mapped[Optional[Strategy]] = relationship("Strategy")
 

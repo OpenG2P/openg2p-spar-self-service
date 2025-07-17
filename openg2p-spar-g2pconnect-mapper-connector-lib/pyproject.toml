@@ -17,7 +17,7 @@ classifiers = [
 ]
 dependencies = [
     "openg2p-spar-mapper-interface-lib",
-    "pyjwt",
+    "openg2p-g2pconnect-mapper-lib",
 ]
 dynamic = ["version"]
 
