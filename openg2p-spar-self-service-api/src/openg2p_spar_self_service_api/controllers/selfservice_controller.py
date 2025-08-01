@@ -1,4 +1,3 @@
-from functools import cached_property
 from typing import Annotated
 
 from fastapi import Depends
@@ -24,6 +23,10 @@ _config = Settings.get_config()
 
 
 class SelfServiceController(BaseController):
+    id_mapper_interface: MapperInterface = MapperInterface.get_cached_component()
+    strategy_helper: StrategyHelper = StrategyHelper.get_cached_component()
+    response_helper: ResponseHelper = ResponseHelper.get_cached_component()
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -60,18 +63,6 @@ class SelfServiceController(BaseController):
             responses={200: {"model": SelfServiceUnlinkResponse}},
             methods=["POST"],
         )
-
-    @cached_property
-    def id_mapper_interface(self) -> MapperInterface:
-        return MapperInterface.get_component()
-
-    @cached_property
-    def strategy_helper(self) -> StrategyHelper:
-        return StrategyHelper.get_component()
-
-    @cached_property
-    def response_helper(self) -> ResponseHelper:
-        return ResponseHelper.get_component()
 
     async def test_strategy(
         self,

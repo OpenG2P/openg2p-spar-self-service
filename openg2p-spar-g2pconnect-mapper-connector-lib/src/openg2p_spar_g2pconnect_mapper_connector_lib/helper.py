@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from openg2p_fastapi_common.service import BaseService
 from openg2p_g2pconnect_common_lib.schemas import RequestHeader
@@ -38,9 +38,9 @@ class MapperConnectorHelper(BaseService):
         self,
         id: str,
         fa: str,
-        name: Optional[str],
-        phone_number: Optional[str],
-        additional_info: Optional[List[Dict[str, Any]]],
+        name: str | None = None,
+        phone_number: str | None = None,
+        additional_info: list[dict[str, Any]] | None = None,
     ) -> LinkRequest:
         link_request_message = LinkRequestMessage(
             transaction_id=str(uuid.uuid4()),
@@ -128,9 +128,9 @@ class MapperConnectorHelper(BaseService):
         self,
         id: str,
         fa: str,
-        name: Optional[str],
-        phone_number: Optional[str],
-        additional_info: Optional[List[Dict[str, Any]]],
+        name: str | None = None,
+        phone_number: str | None = None,
+        additional_info: list[dict[str, Any]] | None = None,
     ) -> UpdateRequest:
         update_request_message = UpdateRequestMessage(
             transaction_id=str(uuid.uuid4()),

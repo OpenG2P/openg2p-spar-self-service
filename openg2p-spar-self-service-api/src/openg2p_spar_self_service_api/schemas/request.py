@@ -1,5 +1,3 @@
-from typing import Optional
-
 from pydantic import BaseModel
 
 
@@ -8,8 +6,8 @@ class RequestHeader(BaseModel):
 
 
 class RequestPagination(BaseModel):
-    request_page: Optional[int]
-    page_size: Optional[int]
+    request_page: int | None = None
+    page_size: int | None = None
 
 
 class SparRequest(BaseModel):

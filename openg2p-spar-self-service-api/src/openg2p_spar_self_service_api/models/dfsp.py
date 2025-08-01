@@ -1,7 +1,6 @@
-from typing import Optional
-
 from openg2p_fastapi_common.context import dbengine
 from openg2p_fastapi_common.models import BaseORMModelWithTimes
+from sqlalchemy import Enum as SaEnum
 from sqlalchemy import ForeignKey, Integer, String, select
 from sqlalchemy.ext.asyncio import async_sessionmaker
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -14,13 +13,10 @@ class DfspLevel(BaseORMModelWithTimes):
     __tablename__ = "dfsp_levels"
 
     name: Mapped[str] = mapped_column(String)
-    level_type: Mapped[str] = mapped_column(String(35), default=LevelTypeEnum)
-    input_type: Mapped[Optional[str]] = mapped_column(String, default=InputTypeEnum)
-    parent: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
-    validation_regex: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-
-    class Config:
-        orm_mode = True
+    level_type: Mapped[LevelTypeEnum] = mapped_column(SaEnum(LevelTypeEnum))
+    input_type: Mapped[InputTypeEnum | None] = mapped_column(SaEnum(InputTypeEnum))
+    parent: Mapped[int | None] = mapped_column(Integer)
+    validation_regex: Mapped[str | None] = mapped_column(String)
 
     @classmethod
     async def get_level(cls, **kwargs):
@@ -45,15 +41,12 @@ class DfspLevelValue(BaseORMModelWithTimes):
 
     name: Mapped[str] = mapped_column(String)
     code: Mapped[str] = mapped_column(String(20))
-    description: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    parent: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
-    level_id: Mapped[int] = mapped_column(Integer, nullable=True)
-    strategy_id: Mapped[Optional[int]] = mapped_column(Integer, ForeignKey("strategy.id"), nullable=True)
+    description: Mapped[str | None] = mapped_column(String)
+    parent: Mapped[int | None] = mapped_column(Integer)
+    level_id: Mapped[int | None] = mapped_column(Integer)
+    strategy_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("strategy.id"))
 
-    strategy: Mapped[Optional[Strategy]] = relationship("Strategy")
-
-    class Config:
-        orm_mode = True
+    strategy: Mapped[Strategy | None] = relationship("Strategy")
 
     @classmethod
     async def get_level_values(cls, **kwargs):

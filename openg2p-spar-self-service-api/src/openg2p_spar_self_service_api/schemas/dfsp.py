@@ -1,5 +1,4 @@
 from enum import Enum
-from typing import List, Optional
 
 from pydantic import BaseModel
 
@@ -26,13 +25,13 @@ class DfspLevelSchema(BaseModel):
     id: int
     name: str
     level_type: LevelTypeEnum
-    input_type: InputTypeEnum = None
-    parent: Optional[int] = None
-    validation_regex: Optional[str] = None
+    input_type: InputTypeEnum | None = None
+    parent: int | None = None
+    validation_regex: str | None = None
 
 
 class DfspLevelRequestPayload(BaseModel):
-    parent: Optional[int]
+    parent: int | None = None
 
 
 class DfspLevelRequest(SparRequest):
@@ -40,22 +39,22 @@ class DfspLevelRequest(SparRequest):
 
 
 class DfspLevelResponse(SparResponse):
-    response_payload: List[DfspLevelSchema]
+    response_payload: list[DfspLevelSchema]
 
 
 class DfspLevelValueSchema(BaseModel):
     id: int
     name: str
     code: str
-    description: Optional[str]
-    parent: Optional[int]
+    description: str | None = None
+    parent: int | None = None
     level_id: int
-    strategy_id: Optional[int]
+    strategy_id: int | None = None
 
 
 class DfspLevelValueRequestPayload(BaseModel):
-    level_id: Optional[int]
-    parent: Optional[int]
+    level_id: int | None = None
+    parent: int | None = None
 
 
 class DfspLevelValueRequest(SparRequest):
@@ -63,4 +62,4 @@ class DfspLevelValueRequest(SparRequest):
 
 
 class DfspLevelValueResponse(SparResponse):
-    response_payload: List[DfspLevelValueSchema]
+    response_payload: list[DfspLevelValueSchema]

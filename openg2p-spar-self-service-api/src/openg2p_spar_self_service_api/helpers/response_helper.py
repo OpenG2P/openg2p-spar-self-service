@@ -1,5 +1,3 @@
-from functools import cached_property
-
 from openg2p_fastapi_common.service import BaseService
 from openg2p_spar_mapper_interface_lib.response import MapperResponse
 
@@ -18,9 +16,7 @@ from .strategy_helper import StrategyHelper
 
 
 class ResponseHelper(BaseService):
-    @cached_property
-    def strategy_helper(self) -> StrategyHelper:
-        return StrategyHelper.get_component()
+    strategy_helper: StrategyHelper = StrategyHelper.get_cached_component()
 
     async def construct_link_response(self, mapper_response: MapperResponse) -> SelfServiceLinkResponse:
         return SelfServiceLinkResponse(

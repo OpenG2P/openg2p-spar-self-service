@@ -1,11 +1,11 @@
 import re
-from typing import List
 
 import orjson
 from openg2p_fastapi_auth.models.credentials import AuthCredentials
 from openg2p_fastapi_common.service import BaseService
 
-from ..models import LoginProvider, Strategy
+from ..controllers import AuthController
+from ..models import Strategy
 from ..schemas import (
     STRATEGY_ID_KEY,
     Fa,
@@ -14,8 +14,10 @@ from ..schemas import (
 
 
 class StrategyHelper(BaseService):
-    async def _construct(self, values: List[KeyValuePair], strategy_id: int) -> str:
-        strategy: Strategy = await Strategy().get_strategy(id=strategy_id)
+    auth_controller: AuthController = AuthController.get_cached_component()
+
+    async def _construct(self, values: list[KeyValuePair], strategy_id: int) -> str:
+        strategy = await Strategy.get_by_id(strategy_id)
         try:
             constructed_str = strategy.construct_strategy.format(
                 **{key_value.key: key_value.value for key_value in values}
@@ -24,7 +26,7 @@ class StrategyHelper(BaseService):
         except Exception as e:
             raise ValueError("Error while constructing ID/FA.") from e
 
-    def _deconstruct(self, value: str, strategy: str) -> List[KeyValuePair]:
+    def _deconstruct(self, value: str, strategy: str) -> list[KeyValuePair]:
         regex_res = re.match(strategy, value)
         deconstructed_list = []
         if regex_res:
@@ -39,7 +41,7 @@ class StrategyHelper(BaseService):
         self,
         auth: AuthCredentials,
     ) -> str:
-        login_provider: LoginProvider = await LoginProvider.get_login_provider_from_iss(auth.iss)
+        login_provider = await self.auth_controller.get_login_provider_db_by_iss(auth.iss)
         constructed_id = await self._construct(
             [
                 KeyValuePair(
@@ -60,18 +62,16 @@ class StrategyHelper(BaseService):
                     key=key,
                     value=(value if isinstance(value, str) else orjson.dumps(value).decode().strip('"')),
                 )
-                for key, value in fa.dict().items()
+                for key, value in fa.model_dump().items()
             ],
             fa.strategy_id,
         )
         return constructed_fa
 
-    async def deconstruct_fa(self, fa: str, additional_info: List[dict]) -> dict:
+    async def deconstruct_fa(self, fa: str, additional_info: list[dict]) -> dict:
         strategy_id = additional_info[0].get(STRATEGY_ID_KEY)
         if strategy_id:
-            strategy = await Strategy.get_strategy(
-                id=strategy_id,
-            )
+            strategy = await Strategy.get_by_id(strategy_id)
             if strategy:
                 deconstructed_pairs = self._deconstruct(fa, strategy.deconstruct_strategy)
                 deconstructed_fa = {pair.key: pair.value for pair in deconstructed_pairs}
@@ -81,9 +81,7 @@ class StrategyHelper(BaseService):
 
     async def deconstruct_fa_test(self, fa: str, strategy_id: int) -> dict:
         if strategy_id:
-            strategy = await Strategy.get_strategy(
-                id=strategy_id,
-            )
+            strategy = await Strategy.get_by_id(strategy_id)
             if strategy:
                 deconstructed_pairs = self._deconstruct(fa, strategy.deconstruct_strategy)
                 deconstructed_fa = {pair.key: pair.value for pair in deconstructed_pairs}
