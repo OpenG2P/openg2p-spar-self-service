@@ -14,6 +14,368 @@
     "version": "1.1.0"
   },
   "paths": {
+    "/auth/profile": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Get Profile",
+        "description": "Get Profile Data of the authenticated user/entity.\nThis can also be used to check whether or not the Authentication is present and valid.\n- Authentication required.\n- If online is true, the server will try to userinfo from original Authorization Server.\n  Else it will return the information present in ID Token and Access token.",
+        "operationId": "get_profile_auth_profile_get",
+        "security": [
+          {
+            "JwtBearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "online",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Online"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicProfile"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Logout",
+        "description": "Perform Logout. This clears the Access Tokens and ID Tokens from cookies.\n- Authentication not mandatory.",
+        "operationId": "logout_auth_logout_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/getLoginProviders": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Get Login Providers",
+        "description": "Get available Login Providers List. Can also be used to display login providers on UI.\nUse getLoginProviderRedirect API to redirect to this Login Provider to perform login.",
+        "operationId": "get_login_providers_auth_getLoginProviders_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginProviderHttpResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/getLoginProviderRedirect/{id}": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Get Login Provider Redirect",
+        "description": "Redirect URL to redirect to the Login Provider's Authorization URL\nbased on the id of login provider given.",
+        "operationId": "get_login_provider_redirect_auth_getLoginProviderRedirect__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "redirect_uri",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "/",
+              "title": "Redirect Uri"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/oauth2/callback": {
+      "get": {
+        "tags": [
+          "oauth"
+        ],
+        "summary": "Oauth Callback",
+        "description": "Oauth2 Redirect Url. Auth Server will redirect to this URL after the Authentication is successful.\n\nInternal Errors:\n- Code: G2P-AUT-401. HTTP: 401. Message: Login Provider Id not received.",
+        "operationId": "oauth_callback_oauth2_callback_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/dfsp/getLevels": {
       "post": {
         "tags": [
@@ -576,368 +938,6 @@
         ]
       }
     },
-    "/auth/profile": {
-      "get": {
-        "tags": [
-          "auth"
-        ],
-        "summary": "Get Profile",
-        "description": "Get Profile Data of the authenticated user/entity.\nThis can also be used to check whether or not the Authentication is present and valid.\n- Authentication required.\n- If online is true, the server will try to userinfo from original Authorization Server.\n  Else it will return the information present in ID Token and Access token.",
-        "operationId": "get_profile_auth_profile_get",
-        "security": [
-          {
-            "JwtBearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "online",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "default": true,
-              "title": "Online"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BasicProfile"
-                }
-              }
-            }
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            },
-            "description": "Unauthorized"
-          },
-          "403": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            },
-            "description": "Forbidden"
-          },
-          "404": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            },
-            "description": "Not Found"
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            },
-            "description": "Internal Server Error"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/logout": {
-      "post": {
-        "tags": [
-          "auth"
-        ],
-        "summary": "Logout",
-        "description": "Perform Logout. This clears the Access Tokens and ID Tokens from cookies.\n- Authentication not mandatory.",
-        "operationId": "logout_auth_logout_post",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/getLoginProviders": {
-      "get": {
-        "tags": [
-          "auth"
-        ],
-        "summary": "Get Login Providers",
-        "description": "Get available Login Providers List. Can also be used to display login providers on UI.\nUse getLoginProviderRedirect API to redirect to this Login Provider to perform login.",
-        "operationId": "get_login_providers_auth_getLoginProviders_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginProviderHttpResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/getLoginProviderRedirect/{id}": {
-      "get": {
-        "tags": [
-          "auth"
-        ],
-        "summary": "Get Login Provider Redirect",
-        "description": "Redirect URL to redirect to the Login Provider's Authorization URL\nbased on the id of login provider given.",
-        "operationId": "get_login_provider_redirect_auth_getLoginProviderRedirect__id__get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Id"
-            }
-          },
-          {
-            "name": "redirect_uri",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "default": "/",
-              "title": "Redirect Uri"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            },
-            "description": "Unauthorized"
-          },
-          "403": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            },
-            "description": "Forbidden"
-          },
-          "404": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            },
-            "description": "Not Found"
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            },
-            "description": "Internal Server Error"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/oauth2/callback": {
-      "get": {
-        "tags": [
-          "oauth"
-        ],
-        "summary": "Oauth Callback",
-        "description": "Oauth2 Redirect Url. Auth Server will redirect to this URL after the Authentication is successful.\n\nInternal Errors:\n- Code: G2P-AUT-401. HTTP: 401. Message: Login Provider Id not received.",
-        "operationId": "oauth_callback_oauth2_callback_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorListResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/ping": {
       "get": {
         "tags": [
@@ -1197,9 +1197,6 @@
           }
         },
         "type": "object",
-        "required": [
-          "parent"
-        ],
         "title": "DfspLevelRequestPayload"
       },
       "DfspLevelResponse": {
@@ -1279,7 +1276,14 @@
             "$ref": "#/components/schemas/LevelTypeEnum"
           },
           "input_type": {
-            "$ref": "#/components/schemas/InputTypeEnum"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InputTypeEnum"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "parent": {
             "anyOf": [
@@ -1358,10 +1362,6 @@
           }
         },
         "type": "object",
-        "required": [
-          "level_id",
-          "parent"
-        ],
         "title": "DfspLevelValueRequestPayload"
       },
       "DfspLevelValueResponse": {
@@ -1484,10 +1484,7 @@
           "id",
           "name",
           "code",
-          "description",
-          "parent",
-          "level_id",
-          "strategy_id"
+          "level_id"
         ],
         "title": "DfspLevelValueSchema"
       },
@@ -1715,10 +1712,6 @@
           }
         },
         "type": "object",
-        "required": [
-          "request_page",
-          "page_size"
-        ],
         "title": "RequestPagination"
       },
       "ResponseHeader": {
