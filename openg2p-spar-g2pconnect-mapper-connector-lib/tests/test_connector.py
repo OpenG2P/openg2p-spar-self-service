@@ -1,9 +1,7 @@
 from unittest.mock import AsyncMock, patch
 
 import pytest
-from openg2p_spar_g2pconnect_mapper_connector_lib.connector import (
-    MapperConnector,
-)
+from openg2p_spar_g2pconnect_mapper_connector_lib.connector import MapperConnector
 from openg2p_spar_mapper_interface_lib.response import MapperResponse
 
 

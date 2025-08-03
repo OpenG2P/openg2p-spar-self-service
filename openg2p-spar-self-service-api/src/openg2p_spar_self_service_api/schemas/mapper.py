@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from pydantic import BaseModel
 
@@ -46,9 +46,9 @@ class EmailWalletFa(Fa):
 
 class SelfServiceLinkRequestPayload(BaseModel):
     fa: BankAccountFa | MobileWalletFa | EmailWalletFa
-    name: Optional[str] = None
-    phone_number: Optional[str] = None
-    additional_info: Optional[List[Dict[str, Any]]] = None
+    name: str | None = None
+    phone_number: str | None = None
+    additional_info: list[dict[str, Any]] | None = None
 
 
 class SelfServiceLinkRequest(SparRequest):
@@ -65,9 +65,9 @@ class SelfServiceLinkResponse(SparResponse):
 
 class SelfServiceUpdateRequestPayload(BaseModel):
     fa: BankAccountFa | MobileWalletFa | EmailWalletFa
-    name: Optional[str] = None
-    phone_number: Optional[str] = None
-    additional_info: Optional[List[Dict[str, Any]]] = None
+    name: str | None = None
+    phone_number: str | None = None
+    additional_info: list[dict[str, Any]] | None = None
 
 
 class SelfServiceUpdateRequest(SparRequest):
@@ -91,10 +91,10 @@ class SelfServiceResolveRequest(SparRequest):
 
 
 class SelfServiceResolveResponsePayload(BaseModel):
-    fa: Optional[dict] = None
-    name: Optional[str] = None
-    phone_number: Optional[str] = None
-    additional_info: Optional[List[Dict[str, Any]]] = None
+    fa: dict | None = None
+    name: str | None = None
+    phone_number: str | None = None
+    additional_info: list[dict[str, Any]] | None = None
 
 
 class SelfServiceResolveResponse(SparResponse):

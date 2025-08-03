@@ -10,6 +10,7 @@ class Settings(BaseSettings):
         env_prefix="spar_selfservice_",
         env_file=".env",
         extra="allow",
+        env_nested_delimiter="__",
     )
 
     openapi_title: str = "SPAR Self Service API"

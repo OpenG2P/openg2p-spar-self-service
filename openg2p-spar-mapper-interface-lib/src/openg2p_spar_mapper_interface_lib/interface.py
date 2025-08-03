@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from openg2p_fastapi_common.service import BaseService
 
@@ -10,9 +10,9 @@ class MapperInterface(BaseService):
         self,
         id: str,
         fa: str,
-        name: Optional[str],
-        phone_number: Optional[str],
-        additional_info: Optional[List[Dict[str, Any]]],
+        name: str | None = None,
+        phone_number: str | None = None,
+        additional_info: list[dict[str, Any]] | None = None,
     ) -> MapperResponse:
         raise NotImplementedError()
 
@@ -26,8 +26,8 @@ class MapperInterface(BaseService):
         self,
         id: str,
         fa: str,
-        name: Optional[str],
-        phone_number: Optional[str],
-        additional_info: Optional[List[Dict[str, Any]]],
+        name: str | None = None,
+        phone_number: str | None = None,
+        additional_info: list[dict[str, Any]] | None = None,
     ) -> MapperResponse:
         raise NotImplementedError()

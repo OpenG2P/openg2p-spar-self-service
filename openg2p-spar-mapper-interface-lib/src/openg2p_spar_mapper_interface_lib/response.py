@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Optional
+from typing import Any
 
 from pydantic import BaseModel
 
@@ -24,12 +24,12 @@ class MapperErrorCode(Enum):
 
 
 class MapperResponse(BaseModel):
-    id: Optional[str] = None
-    fa: Optional[str] = None
-    name: Optional[str] = None
-    phone_number: Optional[str] = None
-    account_provider_info: Optional[object] = (None,)
-    additional_info: Optional[List[object]] = None
-    status: Optional[str] = None
-    mapper_error_code: Optional[str] = None
-    mapper_error_message: Optional[str] = None
+    id: str | None = None
+    fa: str | None = None
+    name: str | None = None
+    phone_number: str | None = None
+    account_provider_info: Any | None = None
+    additional_info: list[dict] | None = None
+    status: str | None = None
+    mapper_error_code: str | None = None
+    mapper_error_message: str | None = None
