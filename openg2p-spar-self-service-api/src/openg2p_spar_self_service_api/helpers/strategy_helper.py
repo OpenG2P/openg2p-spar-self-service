@@ -4,7 +4,7 @@ import orjson
 from openg2p_fastapi_auth.models.credentials import AuthCredentials
 from openg2p_fastapi_common.service import BaseService
 
-from ..controllers import AuthController
+from ..controllers.auth import AuthController
 from ..models import Strategy
 from ..schemas import (
     STRATEGY_ID_KEY,

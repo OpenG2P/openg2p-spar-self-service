@@ -7,7 +7,8 @@ from openg2p_fastapi_common.controller import BaseController
 from openg2p_spar_mapper_interface_lib.interface import MapperInterface
 
 from ..config import Settings
-from ..helpers import ResponseHelper, StrategyHelper
+from ..helpers.response_helper import ResponseHelper
+from ..helpers.strategy_helper import StrategyHelper
 from ..schemas import (
     STRATEGY_ID_KEY,
     SelfServiceLinkRequest,
