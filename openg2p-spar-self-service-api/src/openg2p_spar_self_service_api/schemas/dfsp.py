@@ -7,18 +7,18 @@ from .response import SparResponse
 
 
 class LevelTypeEnum(Enum):
-    BANK = "bank"
-    BRANCH = "branch"
-    ACCOUNT = "account"
-    MOBILE_WALLET_PROVIDER = "mobile_wallet_provider"
-    MOBILE_NUMBER = "mobile_number"
-    EMAIL_WALLET_PROVIDER = "email_wallet_provider"
-    EMAIL_ADDRESS = "email_address"
+    bank = "bank"
+    branch = "branch"
+    account = "account"
+    mobile_wallet_provider = "mobile_wallet_provider"
+    mobile_number = "mobile_number"
+    email_wallet_provider = "email_wallet_provider"
+    email_address = "email_address"
 
 
 class InputTypeEnum(Enum):
-    INPUT = "input"
-    SELECT = "select"
+    input = "input"
+    select = "select"
 
 
 class DfspLevelSchema(BaseModel):
