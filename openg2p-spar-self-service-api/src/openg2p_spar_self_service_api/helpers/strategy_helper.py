@@ -56,13 +56,19 @@ class StrategyHelper(BaseService):
         return constructed_id
 
     async def construct_fa(self, fa: Fa) -> str:
+        fa_dict = fa.model_dump()
+
+        # Appending fa with email address and mobile number
+        fa_dict["email_address"] = ""
+        fa_dict["mobile_number"] = ""
+
         constructed_fa = await self._construct(
             [
                 KeyValuePair(
                     key=key,
                     value=(value if isinstance(value, str) else orjson.dumps(value).decode().strip('"')),
                 )
-                for key, value in fa.model_dump().items()
+                for key, value in fa_dict.items()
             ],
             fa.strategy_id,
         )
