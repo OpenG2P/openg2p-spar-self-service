@@ -77,7 +77,7 @@ class MapperConnectorHelper(BaseService):
             unlink_request=[
                 SingleUnlinkRequest(
                     reference_id=str(uuid.uuid4()),
-                    timestamp=datetime.now(),
+                    timestamp=str(datetime.now()),
                     id=id,
                 )
             ],
@@ -88,7 +88,7 @@ class MapperConnectorHelper(BaseService):
                 message_id=str(uuid.uuid4()),
                 message_ts=str(datetime.now()),
                 action="unlink",
-                sender_id="",
+                sender_id=_config.sender_id,
                 sender_uri="",
                 total_count=1,
             ),
@@ -103,7 +103,7 @@ class MapperConnectorHelper(BaseService):
             resolve_request=[
                 SingleResolveRequest(
                     reference_id=str(uuid.uuid4()),
-                    timestamp=datetime.now(),
+                    timestamp=str(datetime.now()),
                     id=id,
                     scope="details",
                 )
@@ -115,7 +115,7 @@ class MapperConnectorHelper(BaseService):
                 message_id=str(uuid.uuid4()),
                 message_ts=str(datetime.now()),
                 action="resolve",
-                sender_id="",
+                sender_id=_config.sender_id,
                 sender_uri="",
                 total_count=1,
             ),
@@ -137,7 +137,7 @@ class MapperConnectorHelper(BaseService):
             update_request=[
                 SingleUpdateRequest(
                     reference_id=str(uuid.uuid4()),
-                    timestamp=datetime.now(),
+                    timestamp=str(datetime.now()),
                     id=id,
                     fa=fa,
                     name=name,
@@ -152,7 +152,7 @@ class MapperConnectorHelper(BaseService):
                 message_id=str(uuid.uuid4()),
                 message_ts=str(datetime.now()),
                 action="update",
-                sender_id="",
+                sender_id=_config.sender_id,
                 sender_uri="",
                 total_count=1,
             ),
